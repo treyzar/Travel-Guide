@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./attractions/css/attractions.css">
+    <title>Достопримечательности</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a href="./main.html" class="navbar__logo"><img src="./main/img/logo2.png" alt="" class="navbar__logo-img"></a></div>
+        <div class="navbar-toggle" id="navbarToggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <ul class="navbar-menu" id="navbarMenu">
+            <li><a href="./main.html" class="navbar-menu-text">Главная</a></li>
+            <li><a href="./contacts.html" class="navbar-menu-text">Контакты</a></li>
+            <li><a href="./signin.html" class="navbar-menu-text">Войти</a></li>
+            <li><a href="./registration.html" class="navbar-menu-text">Зарегистрироваться</a></li>
+        </ul>
+    </nav>
+    
+    <script src="./attractions/js/navbar.js"></script>
+    <section class="main">
+        <div class="container">
+            <h1>Достопримечательности Чебоксар</h1>
+            <div class="filters">
+                <input type="text" id="searchInput" placeholder="Поиск...">
+                <select id="categoryFilter">
+                    <option value="all">Все</option>
+                    <option value="temples">Храмы</option>
+                    <option value="parks">Парки</option>
+                    <option value="theaters">Театры</option>
+                    <option value="museums">Музеи</option>
+                    <option value="zoos">Зоопарки</option>
+                </select>
+            </div>
+            <div id="cardsContainer"></div>
+            <div id="pagination">
+                <button id="prevPage" class="prevPage">Предыдущая</button>
+                <span id="pageInfo"></span>
+                <button id="nextPage" class="nextPage">Следующая</button>
+            </div>
+        </div>
+        <script src="./attractions/js/attractions.js"></script>
+    </section> 
+    <footer class="footer">
+        <div class="footer__wrap">
+            <div class="footer__container">
+                <h1 class="footer__container-text">
+                    All Rights Reserved © Round Deer
+                </h1>
+                <p class="footer__container-paragraph">
+                     Все права защищены © Round Deer
+                </p>
+                <a href="./contacts.html" class="footer__container-connection">Связаться с нами</a>
+                <div class="footer__container-icons">
+                    <a href="https://vk.com/" class="footer__container-btn"><img src="./main/img/icons8-vk.svg" alt="" class="footer__cointainer-img"></a>
+                    <a href="https://www.youtube.com/" class="footer__container-btn"><img src="./main/img/icons8-youtube.svg" alt="" class="footer__container-img"></a>
+                    <a href="https://web.telegram.org/a/" class="footer__container-btn"><img src="./main/img/icons8-телеграм.svg" alt="" class="footer__container-img"></a>
+                </div>
+            </div>
+                
+        </div>
+    </footer>
+</body>
+</html>

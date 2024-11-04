@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" href="./contacts/css/contacts.css">
+    <title>Контакты</title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-brand"><a href="./main.html" class="navbar__logo"><img src="./main/img/logo2.png" alt="" class="navbar__logo-img"></a></div>
+    <div class="navbar-toggle" id="navbarToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="./main.html" class="navbar-menu-text">Главная</a></li>
+        <li><a href="./registration.html" class="navbar-menu-text">Зарегистрироваться</a></li>
+        <li><a href="./attractions.html" class="navbar-menu-text">Достопримечательности</a></li>
+        <li><a href="./signin.html" class="navbar-menu-text">Войти</a></li>
+    </ul>
+    <script src="./contacts/js/navbar.js"></script>
+</nav>
+
+<section class="main">
+    <div class="main__wrap">
+        <div class="main__container">
+            <div class="main__container-box-1">
+                <h1 class="main__container-box-1-title" id>
+                    Связаться со мной:
+                </h1>
+                <p class="main__container-box-1-subtitle">
+                    telegram:
+                    <a href="https://web.telegram.org/a/#996599138" class="main__container-box-1-social">Ванек</a>
+                </p>
+                <p class="main__container-box-1-subtitle">
+                    vk:
+                    <a href="https://vk.com/rikimauzer" class="main__container-box-1-social">Ванек</a>
+                </p>
+                <p class="main__container-box-1-subtitle">
+                    хссс:
+                    <a href="https://github.com/treyzar" class="main__container-box-1-social">Ванек</a>
+                </p>
+            </div>
+            <div class="contacts">
+                <button id="openModal">Связаться со мной</button>
+            </div>
+            
+            <!-- Модальное окно -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Форма для связи</h2>
+                    <form id="contactForm">
+                        <label for="name">Имя:</label>
+                        <input type="text" id="name" name="name" required><br><br>
+            
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone" required><br><br>
+            
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required><br><br>
+            
+                        <label for="message">Сообщние:</label>
+                        <textarea id="message" name="message" required></textarea><br><br>
+            
+                        <button type="button" onclick="submitForm()">Submit</button>
+                    </form>
+                </div>
+            </div>
+            
+            <script src="./contacts/js/modal.js"></script> 
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="footer__wrap">
+        <div class="footer__container">
+            <h1 class="footer__container-text">
+                All Rights Reserved © Round Deer
+            </h1>
+            <p class="footer__container-paragraph">
+                 Все права защищены © Round Deer
+            </p>
+            <a href="./contacts.html" class="footer__container-connection">Связаться с нами</a>
+            <div class="footer__container-icons">
+                <a href="https://vk.com/" class="footer__container-btn"><img src="./main/img/icons8-vk.svg" alt="" class="footer__cointainer-img"></a>
+                <a href="https://www.youtube.com/" class="footer__container-btn"><img src="./main/img/icons8-youtube.svg" alt="" class="footer__container-img"></a>
+                <a href="https://web.telegram.org/a/" class="footer__container-btn"><img src="./main/img/icons8-телеграм.svg" alt="" class="footer__container-img"></a>
+            </div>
+        </div>
+            
+    </div>
+</footer>
+
+
+<!-- <script src="./contacts/js/navbar.js"></script>
+    
+
+    <button id="openModalBtn" class="hover-button">Связаться с нами</button>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Свяжитесь с нами</h2>
+            <form id="contactForm">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="tel">Номер телефона</label>
+                <input type="tel" id="tel" name="tel" required>
+
+                <label for="message">Сообщение:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div> -->
+
+    <script src="./contacts/js/modal.js"></script>
+</body>
+</html>
