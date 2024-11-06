@@ -108,7 +108,7 @@ box-shadow: 0px 10px 11px 5px rgba(34, 60, 80, 0.2);
     }
 }
 .main{
-    background: url('/git-github.com-treyzar-travel_guide/attractions/img/panorama-goroda-cheboksary-s-borta-teplohoda-173096big.jpg');
+    background: url('/attractions/img/panorama-goroda-cheboksary-s-borta-teplohoda-173096big.jpg');
     width: 100%;
     height: 860px;
     background-color: azure;
@@ -142,8 +142,8 @@ box-shadow: 0px 10px 11px 5px rgba(34, 60, 80, 0.2);
         max-width: 350px;
         padding: 5px;
         height: 210px;
-        background-color: #a3a8aa27;
-        color: #ffffff;
+        background-color: #fff;
+        color: #444444;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
         display: flex;
@@ -158,8 +158,8 @@ box-shadow: 0px 10px 11px 5px rgba(34, 60, 80, 0.2);
         max-width: 350px;
         padding: 5px;
         height: 210px;
-        background-color: #a3a8aa27;
-        color: #ffffff;
+        background-color: #fff;
+        color: #444444;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
         display: flex;
@@ -172,10 +172,10 @@ box-shadow: 0px 10px 11px 5px rgba(34, 60, 80, 0.2);
         &-center{
             margin-top: 200px;
         max-width: 550px;
-        height: 300px;
+        height: 310px;
         padding: 5px;
-        background-color: #a3a8aa27;
-        color: #ffffff;
+        background-color: #fff;
+        color: #444444;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -395,7 +395,7 @@ box-shadow: 0px 10px 11px 5px rgba(34, 60, 80, 0.2);
 }
 .footer{
     width: 100%;
-    height: 260px;
+    height: 220px;
     background-color: rgba(0, 0, 0, 0.203);
     &__container{
         display: flex;
