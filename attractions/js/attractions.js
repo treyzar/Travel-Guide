@@ -13,6 +13,8 @@ let attractions = [];
 let filteredAttractions = [];
 
 
+
+
 async function fetchAttractions() {
     try {
         document.getElementById("preloader_malc").style.display = "flex"; 
@@ -36,15 +38,20 @@ function displayAttractions(data) {
     data.forEach(attraction => {
         const card = document.createElement('div');
         card.className = 'card';
+        card.id = 'card';
         card.innerHTML = `
             <img src="${attraction.image}" alt="${attraction.name}" style="height: 200px; width: 320px; border-radius: 7px;">
             <h2 alt ="${attraction.name}" style="padding-bottom: 5px;">${attraction.name}</h2>
             <p>${attraction.description}</p>
             <p><strong>Адрес:</strong> ${attraction.addres}</p>
         `;
+        card.addEventListener('click', function redirectToPage(){
+            window.location.href = './info.html'
+        })
         cardsContainer.appendChild(card);
     });
 }
+
 
 function updatePagination() {
     const totalPages = Math.ceil(filteredAttractions.length / itemsPerPage);
