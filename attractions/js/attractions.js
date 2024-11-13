@@ -1,15 +1,4 @@
-const attractions = [
-    { name: "Храм Святителя Николая Чудотворца", description: "Старинный православный храм.", image: './attractions/img/1cards.webp', addres: 'asdfjlsdjf', category: "temples" },
-    { name: "Свято-Троицкий монастырь", description: "Мужской монастырь Чебоксарской епархии Русской православной церкви.", image: './attractions/img/card2.jpg', category: "museums" },
-    { name: "Парк Победы", description: "Мемориальный парк, посвященный победе в Великой Отечественной войне.", image: './attractions/img/card3.jpeg', category: "parks" },
-    { name: "Чебоксарский зоопарк", description: "Один из старейших зоопарков России.", image: './attractions/img/card4.jpg', category: "zoos" },
-    { name: "Чувашский национальный музей", description: "Музей, рассказывающий об истории и культуре Чувашии.", image: './attractions/img/card5.webp', category: "museums" },
-    { name: "Парк 500-летия", description: "Один из самых больших парков города.", image: './attractions/img/card6.jpg', category: "parks" },
-    { name: "Сергиевский собор", description: "Православный собор, построенный в 20 веке.", image: './attractions/img/card7.jpg', category: "temples" },
-    { name: "Чувашский драмтеатр", description: "Театр, основанный в 1938 году.", image: './attractions/img/card8.jpg', category: "theaters" },
-    { name: "Парк им. Ленина", description: "Один из первых парков города.", image: './attractions/img/card9.jpg', category: "parks" },
-    { name: "Храм Святой Троицы", description: "Православный храм, построенный в 19 веке.", image: './attractions/img/card10.webp', category: "temples" }
-];
+const url = 'https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd';
 
 const cardsContainer = document.getElementById('cardsContainer');
 const searchInput = document.getElementById('searchInput');
@@ -20,18 +9,38 @@ const pageInfo = document.getElementById('pageInfo');
 
 let currentPage = 1;
 const itemsPerPage = 3;
-let filteredAttractions = attractions;
+let attractions = []; 
+let filteredAttractions = [];
 
-function displayAttractions(attractions) {
+
+async function fetchAttractions() {
+    try {
+        document.getElementById("preloader_malc").style.display = "flex"; 
+        const response = await fetch(url, {
+            method: 'GET'
+        });
+        const data = await response.json();
+        attractions = data;
+        filteredAttractions = data;
+        displayPage();
+        updatePagination();
+    } catch (error) {
+        console.error('Ошибка при получении данных:', error);
+    } finally {
+        document.getElementById("preloader_malc").style.display = "none"; 
+    }
+}
+
+function displayAttractions(data) {
     cardsContainer.innerHTML = '';
-    attractions.forEach(attraction => {
+    data.forEach(attraction => {
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
             <img src="${attraction.image}" alt="${attraction.name}" style="height: 200px; width: 320px; border-radius: 7px;">
             <h2 alt ="${attraction.name}" style="padding-bottom: 5px;">${attraction.name}</h2>
             <p>${attraction.description}</p>
-            <p><strong>Адрес:</strong> ${attraction.address}</p>
+            <p><strong>Адрес:</strong> ${attraction.addres}</p>
         `;
         cardsContainer.appendChild(card);
     });
@@ -88,4 +97,4 @@ nextPageButton.addEventListener('click', () => {
 });
 
 // Инициализация
-filterAttractions();
+fetchAttractions();
