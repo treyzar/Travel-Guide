@@ -43,7 +43,7 @@ function displayAttractions(data) {
             <img src="${attraction.image}" alt="${attraction.name}" style="height: 200px; width: 320px; border-radius: 7px;">
             <h2 alt ="${attraction.name}" style="padding-bottom: 5px;">${attraction.name}</h2>
             <p>${attraction.description}</p>
-            <p><strong>Адрес:</strong> ${attraction.addres}</p>
+            <p style = "padding-top: 5px;"><strong>Адрес:</strong> ${attraction.addres}</p>
         `;
         card.addEventListener('click', function redirectToPage(){
             window.location.href = './info.html'
@@ -56,7 +56,7 @@ function displayAttractions(data) {
 function updatePagination() {
     const totalPages = Math.ceil(filteredAttractions.length / itemsPerPage);
     pageInfo.textContent = `Страница ${currentPage} из ${totalPages}`;
-
+    
     prevPageButton.disabled = currentPage === 1;
     nextPageButton.disabled = currentPage === totalPages;
 }
@@ -103,5 +103,4 @@ nextPageButton.addEventListener('click', () => {
     }
 });
 
-// Инициализация
 fetchAttractions();
