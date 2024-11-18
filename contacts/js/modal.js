@@ -51,3 +51,4 @@ function scrollToBottom() {
         behavior: 'smooth'
     });
 }
+console.log(localStorage);
