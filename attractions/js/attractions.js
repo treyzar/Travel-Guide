@@ -17,7 +17,6 @@ let filteredAttractions = [];
 
 async function fetchAttractions() {
     try {
-        document.getElementById("preloader_malc").style.display = "flex"; 
         const response = await fetch(url, {
             method: 'GET'
         });
@@ -28,12 +27,12 @@ async function fetchAttractions() {
         updatePagination();
     } catch (error) {
         console.error('Ошибка при получении данных:', error);
-    } finally {
-        document.getElementById("preloader_malc").style.display = "none"; 
+    } finally { 
     }
 }
 
 function displayAttractions(data) {
+    document.getElementById("preloader_malc").style.display = "flex"; 
     cardsContainer.innerHTML = '';
     data.forEach(attraction => {
         const card = document.createElement('div');
@@ -49,7 +48,9 @@ function displayAttractions(data) {
             window.location.href = './info.html'
         })
         cardsContainer.appendChild(card);
+        document.getElementById("preloader_malc").style.display = "none"; 
     });
+    
 }
 
 
@@ -104,3 +105,4 @@ nextPageButton.addEventListener('click', () => {
 });
 
 fetchAttractions();
+// document.getElementById("preloader_malc").style.display = "none"; 
