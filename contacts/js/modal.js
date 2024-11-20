@@ -49,4 +49,14 @@ function submitForm() {
             behavior: 'smooth'
         });
     }
-}
+// <<<<<<< contacts_page
+// }
+// }
+// // function scrollToBottom() {
+// //     window.scrollTo({
+// //         top: document.body.scrollHeight,
+// //         behavior: 'smooth'
+// //     });
+// // }
+// // console.log(localStorage);
+// >>>>>>> master
