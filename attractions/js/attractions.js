@@ -1,4 +1,5 @@
 const url = 'https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd';
+const URLdescriptions = 'https://672b2e13976a834dd025f082.mockapi.io/travelguide/info';
 
 const cardsContainer = document.getElementById('cardsContainer');
 const searchInput = document.getElementById('searchInput');
@@ -11,9 +12,6 @@ let currentPage = 1;
 const itemsPerPage = 3;
 let attractions = []; 
 let filteredAttractions = [];
-
-
-
 
 async function fetchAttractions() {
     try {
@@ -31,6 +29,22 @@ async function fetchAttractions() {
     }
 }
 
+async function fetchDescriptions() {
+    try {
+        const responseDecritptions = await fetch(URLdescriptions, {
+            method: 'GET'
+        });
+        const dataDescriptions = await responseDecritptions.json();
+        attractionsDescriptions = dataDescriptions;
+        console.log(dataDescriptions);
+    } catch (error) {
+        console.error('Нет описания карточек:', error);
+    } finally {
+    }
+}
+
+fetchDescriptions();
+
 function displayAttractions(data) {
     document.getElementById("preloader_malc").style.display = "flex"; 
     cardsContainer.innerHTML = '';
@@ -45,12 +59,12 @@ function displayAttractions(data) {
             <p style = "padding-top: 5px;"><strong>Адрес:</strong> ${attraction.addres}</p>
         `;
         card.addEventListener('click', function redirectToPage(){
-            window.location.href = './info.html'
-        })
+            window.location.href = `./info.html?id=${attraction.id}`;
+        });
         cardsContainer.appendChild(card);
         document.getElementById("preloader_malc").style.display = "none"; 
     });
-    
+
 }
 
 
@@ -103,6 +117,12 @@ nextPageButton.addEventListener('click', () => {
         updatePagination();
     }
 });
-
+document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+        const cardName = card.getAttribute('data-name');
+        const urlParams = new URLSearchParams();
+        urlParams.append('name', cardName);
+        window.location.href = `info.html?${urlParams.toString()}`;
+    });
+});
 fetchAttractions();
-// document.getElementById("preloader_malc").style.display = "none"; 
