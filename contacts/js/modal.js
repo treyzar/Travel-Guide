@@ -35,20 +35,18 @@ function submitForm() {
         document.getElementById('modal').style.display = 'none';
         localStorage.clear()
         clearFormFields();
-        scrollToBottom();
+    }
+    function clearFormFields() {
+        const form = document.getElementById('contactForm');
+        for (let i = 0; i < form.elements.length; i++) {
+            const element = form.elements[i];
+            element.value = '';
+        }
+    }
+    function scrollToBottom() {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
     }
 }
-function clearFormFields() {
-    const form = document.getElementById('contactForm');
-    for (let i = 0; i < form.elements.length; i++) {
-        const element = form.elements[i];
-        element.value = '';
-    }
-}
-function scrollToBottom() {
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth'
-    });
-}
-console.log(localStorage);
