@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о достопримечательности</title>
+</head>
+<body>
+    <div id="infoContainer">
+        <!-- Здесь будет отображаться информация о достопримечательности -->
+    </div>
+
+    <script>
+        // Получаем параметры запроса из URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Извлекаем name из параметров запроса
+        const name = urlParams.get('name');
+
+        // Функция для получения данных о достопримечательности по name
+        async function fetchAttractionDetails(name) {
+            try {
+                const response = await fetch('https://672b2e13976a834dd025f082.mockapi.io/travelguide/info', {
+                    method: 'GET'
+                });
+                const data = await response.json();
+                const attraction = data.find(item => item.name === name);
+                if (attraction) {
+                    displayAttractionDetails(attraction);
+                } else {
+                    console.error('Достопримечательность не найдена');
+                }
+            } catch (error) {
+                console.error('Ошибка при получении данных:', error);
+            }
+        }
+
+        // Функция для отображения данных о достопримечательности
+        function displayAttractionDetails(attraction) {
+            const infoContainer = document.getElementById('infoContainer');
+            infoContainer.innerHTML = `
+                <h1>${attraction.name}</h1>
+                <p>${attraction.description}</p>
+            `;
+        }
+
+        // Вызываем функцию для получения и отображения данных
+        fetchAttractionDetails(name);
+    </script>
+</body>
+</html>

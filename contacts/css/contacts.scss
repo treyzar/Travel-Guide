@@ -114,22 +114,40 @@ a{
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+}
+
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.7s ease-in-out;
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
+    padding: 15px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 500px;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    top: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal.show .modal-content {
+    top: 0;
 }
 
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -148,13 +166,21 @@ form {
 
 label {
     margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
 }
 
 input, textarea {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 4px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input:focus, textarea:focus {
+    border-color: #555555;
+    outline: none;
 }
 
 button {
@@ -164,12 +190,12 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
 button:hover {
     background-color: #484848;
 }
-
 .main{
     height: 725px;
     background-color: rgba(0, 0, 0, 0.4);
@@ -200,7 +226,7 @@ button:hover {
 }
 .footer{
     width: 100%;
-    height: 260px;
+    height: 220px;
     background-color: rgba(0, 0, 0, 0.203);
     &__container{
         display: flex;
