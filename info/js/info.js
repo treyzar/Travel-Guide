@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const cardName = urlParams.get('name');
-    const cardId = urlParams.get('id')
 
     if (cardName) {
-        fetch(`https://672b2e13976a834dd025f082.mockapi.io/travelguide/info?name=${cardId}`)
+        fetch(`https://672b2e13976a834dd025f082.mockapi.io/travelguide/info?name=${name}`)
             .then(response => response.json())
             .then(data => {
                 const detailsDiv = document.getElementById('attractionInfo');

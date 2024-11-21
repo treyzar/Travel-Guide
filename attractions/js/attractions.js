@@ -29,21 +29,21 @@ async function fetchAttractions() {
     }
 }
 
-async function fetchDescriptions() {
-    try {
-        const responseDecritptions = await fetch(URLdescriptions, {
-            method: 'GET'
-        });
-        const dataDescriptions = await responseDecritptions.json();
-        attractionsDescriptions = dataDescriptions;
-        console.log(dataDescriptions);
-    } catch (error) {
-        console.error('Нет описания карточек:', error);
-    } finally {
-    }
-}
+// async function fetchDescriptions() {
+//     try {
+//         const responseDecritptions = await fetch(URLdescriptions, {
+//             method: 'GET'
+//         });
+//         const dataDescriptions = await responseDecritptions.json();
+//         attractionsDescriptions = dataDescriptions;
+//         console.log(dataDescriptions);
+//     } catch (error) {
+//         console.error('Нет описания карточек:', error);
+//     } finally {
+//     }
+// }
 
-fetchDescriptions();
+// fetchDescriptions();
 
 function displayAttractions(data) {
     document.getElementById("preloader_malc").style.display = "flex"; 
@@ -119,9 +119,9 @@ nextPageButton.addEventListener('click', () => {
 });
 document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
-        const cardName = card.getAttribute('data-name');
+        // const cardName = card.getAttribute('data-name');
         const urlParams = new URLSearchParams();
-        urlParams.append('name', cardName);
+        urlParams.append('name');
         window.location.href = `info.html?${urlParams.toString()}`;
     });
 });
