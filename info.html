@@ -3,58 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./info/css/info.css">
     <title>Информация о карточке</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .card {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-        }
-        .card img {
-            max-width: 100%;
-            border-radius: 7px;
-        }
-        .card h2 {
-            margin: 10px 0;
-        }
-        .card p {
-            margin: 10px 0;
-        }
-    </style>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a href="./main.html" class="navbar__logo"><img src="./main/img/logo2.png" alt="" class="navbar__logo-img"></a></div>
+        <div class="navbar-toggle" id="navbarToggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <ul class="navbar-menu" id="navbarMenu">
+            <li><a href="./main.html" class="navbar-menu-text">Главная</a></li>
+            <li><a href="./contacts.html" class="navbar-menu-text">Контакты</a></li>
+            <li><a href="./signin.html" class="navbar-menu-text">Войти</a></li>
+            <li><a href="./registration.html" class="navbar-menu-text">Зарегистрироваться</a></li>
+        </ul>
+    </nav>
+    <script src="./info/js/navbar.js"></script>
+    
     <div class="card" id="cardInfo">
-        <!-- Данные будут вставлены сюда -->
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name');
-            const image = urlParams.get('image');
-            const description = urlParams.get('description');
-
-            const cardInfo = document.getElementById('cardInfo');
-            cardInfo.innerHTML = `
-                <img src="${image}" alt="${name}" style="height: 200px; width: 320px; border-radius: 7px;">
-                <h2>${name}</h2>
-                <p>${description}</p>
-            `;
-        });
+    <script src="./info/js/info.js">
     </script>
 </body>
 </html>

@@ -1,0 +1,123 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+// body {
+//     font-family: Arial, sans-serif;
+//     background-color: #f4f4f4;
+//     margin: 0;
+//     padding: 0;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100vh;
+// }
+// .card {
+//     background-color: #fff;
+//     padding: 20px;
+//     border-radius: 10px;
+//     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+//     width: 100%;
+//     text-align: center;
+// }
+// .card img {
+//     max-width: 100%;
+//     border-radius: 7px;
+// }
+// .card h2 {
+//     margin: 10px 0;
+// }
+// .card p {
+//     margin: 10px 0;
+// }
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.203);
+    color: white;
+    padding: 10px 20px;
+    height: 100px;
+    &__logo{
+        &-img{
+            width: 75px;
+            height: 75px;
+        }
+    }
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.navbar-toggle .bar {
+    height: 3px;
+    width: 25px;
+    background-color: white;
+    margin: 4px 0;
+    border-radius: 2px;
+}
+
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    &-text{
+        transition: color 0.7s ease;
+    }
+}
+
+.navbar-menu-text:hover{
+    color: #000000;
+}
+
+.navbar-menu li {
+    margin-left: 20px;
+}
+
+.navbar-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+@media (max-width: 450px) {
+    .navbar-toggle {
+        display: flex;
+    }
+
+    .navbar-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: rgb(175, 175, 175);
+        position: absolute;
+        top: 100px;
+        right: 0;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.3s ease, transform 0.3s ease background-color 0.3s ease;
+    }
+
+    .navbar-menu.active {
+        display: flex;
+        z-index: 1;
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .navbar-menu li {
+        margin: 0;
+        padding: 15px 20px;
+        text-align: center;
+    }
+}

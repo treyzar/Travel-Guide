@@ -58,6 +58,11 @@ async function fetchDescriptions() {
 function displayAttractions(data) {
     document.getElementById("preloader_malc").style.display = "flex"; 
     cardsContainer.innerHTML = '';
+    if (data.length === 0) {
+        cardsContainer.innerHTML = '<p>По вашему запросу ничего не найдено.</p>';
+        document.getElementById("preloader_malc").style.display = "none"; 
+        return;
+    }
     data.forEach(attraction => {
         const card = document.createElement('div');
         card.className = 'card';
