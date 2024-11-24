@@ -29,21 +29,23 @@ async function fetchAttractions() {
     }
 }
 
-// async function fetchDescriptions() {
-//     try {
-//         const responseDecritptions = await fetch(URLdescriptions, {
-//             method: 'GET'
-//         });
-//         const dataDescriptions = await responseDecritptions.json();
-//         attractionsDescriptions = dataDescriptions;
-//         console.log(dataDescriptions);
-//     } catch (error) {
-//         console.error('Нет описания карточек:', error);
-//     } finally {
-//     }
-// }
+let attractionsDescriptions = [];
 
-// fetchDescriptions();
+async function fetchDescriptions() {
+    try {
+        const responseDescriptions = await fetch(URLdescriptions, {
+            method: 'GET'
+        });
+        const dataDescriptions = await responseDescriptions.json();
+        attractionsDescriptions = dataDescriptions;
+    } catch (error) {
+        console.error('Ошибка при получении описаний:', error);
+    }
+}
+
+fetchDescriptions();
+
+fetchDescriptions();
 
 function displayAttractions(data) {
     document.getElementById("preloader_malc").style.display = "flex"; 
@@ -52,19 +54,26 @@ function displayAttractions(data) {
         const card = document.createElement('div');
         card.className = 'card';
         card.id = 'card';
+
+        const description = attractionsDescriptions.find(desc => desc.id === attraction.id);
+
         card.innerHTML = `
             <img src="${attraction.image}" alt="${attraction.name}" style="height: 200px; width: 320px; border-radius: 7px;">
             <h2 alt ="${attraction.name}" style="padding-bottom: 5px;">${attraction.name}</h2>
-            <p>${attraction.description}</p>
+            <p>${description}</p>
             <p style = "padding-top: 5px;"><strong>Адрес:</strong> ${attraction.addres}</p>
         `;
         card.addEventListener('click', function redirectToPage(){
-            window.location.href = `./info.html?id=${attraction.id}`;
+            const urlParams = new URLSearchParams();
+            urlParams.append('name', attraction.name);
+            urlParams.append('image', attraction.image);
+            const description = attractionsDescriptions.find(desc => desc.id === attraction.id);
+            urlParams.append('description', description ? description.description : 'Описание отсутствует');
+            window.location.href = `./info.html?${urlParams.toString()}`;
         });
         cardsContainer.appendChild(card);
         document.getElementById("preloader_malc").style.display = "none"; 
     });
-
 }
 
 
