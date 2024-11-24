@@ -21,6 +21,18 @@ async function fetchAttractions() {
         const data = await response.json();
         attractions = data;
         filteredAttractions = data;
+
+        await fetchDescriptions();
+
+        attractions.forEach(attraction => {
+            const description = attractionsDescriptions.find(desc => desc.id === attraction.id);
+            if (description) {
+                attraction.description = description.description;
+            } else {
+                attraction.description = 'Описание отсутствует';
+            }
+        });
+
         displayPage();
         updatePagination();
     } catch (error) {
@@ -43,10 +55,6 @@ async function fetchDescriptions() {
     }
 }
 
-fetchDescriptions();
-
-fetchDescriptions();
-
 function displayAttractions(data) {
     document.getElementById("preloader_malc").style.display = "flex"; 
     cardsContainer.innerHTML = '';
@@ -55,27 +63,23 @@ function displayAttractions(data) {
         card.className = 'card';
         card.id = 'card';
 
-        const description = attractionsDescriptions.find(desc => desc.id === attraction.id);
-
         card.innerHTML = `
             <img src="${attraction.image}" alt="${attraction.name}" style="height: 200px; width: 320px; border-radius: 7px;">
             <h2 alt ="${attraction.name}" style="padding-bottom: 5px;">${attraction.name}</h2>
-            <p>${description}</p>
+            <p>${attraction.description}</p>
             <p style = "padding-top: 5px;"><strong>Адрес:</strong> ${attraction.addres}</p>
         `;
         card.addEventListener('click', function redirectToPage(){
             const urlParams = new URLSearchParams();
             urlParams.append('name', attraction.name);
             urlParams.append('image', attraction.image);
-            const description = attractionsDescriptions.find(desc => desc.id === attraction.id);
-            urlParams.append('description', description ? description.description : 'Описание отсутствует');
+            urlParams.append('description', attraction.description);
             window.location.href = `./info.html?${urlParams.toString()}`;
         });
         cardsContainer.appendChild(card);
         document.getElementById("preloader_malc").style.display = "none"; 
     });
 }
-
 
 function updatePagination() {
     const totalPages = Math.ceil(filteredAttractions.length / itemsPerPage);
@@ -126,12 +130,5 @@ nextPageButton.addEventListener('click', () => {
         updatePagination();
     }
 });
-document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
-        // const cardName = card.getAttribute('data-name');
-        const urlParams = new URLSearchParams();
-        urlParams.append('name');
-        window.location.href = `info.html?${urlParams.toString()}`;
-    });
-});
+
 fetchAttractions();

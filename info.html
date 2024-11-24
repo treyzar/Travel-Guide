@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Информация о достопримечательности</title>
+    <title>Информация о карточке</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,47 +15,46 @@
             align-items: center;
             height: 100vh;
         }
-        .container {
+        .card {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             max-width: 600px;
             width: 100%;
             text-align: center;
         }
-        img {
+        .card img {
             max-width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            border-radius: 7px;
         }
-        h1 {
-            margin: 0 0 20px;
+        .card h2 {
+            margin: 10px 0;
         }
-        p {
-            font-size: 18px;
-            line-height: 1.6;
+        .card p {
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 id="attractionName"></h1>
-        <img id="attractionImage" src="" alt="">
-        <p id="attractionDescription"></p>
+    <div class="card" id="cardInfo">
+        <!-- Данные будут вставлены сюда -->
     </div>
 
     <script>
-        // Получаем параметры из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const name = urlParams.get('name');
-        const image = urlParams.get('image');
-        const description = urlParams.get('description');
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name');
+            const image = urlParams.get('image');
+            const description = urlParams.get('description');
 
-        // Выводим данные на страницу
-        document.getElementById('attractionName').textContent = name;
-        document.getElementById('attractionImage').src = image;
-        document.getElementById('attractionDescription').textContent = description;
+            const cardInfo = document.getElementById('cardInfo');
+            cardInfo.innerHTML = `
+                <img src="${image}" alt="${name}" style="height: 200px; width: 320px; border-radius: 7px;">
+                <h2>${name}</h2>
+                <p>${description}</p>
+            `;
+        });
     </script>
 </body>
 </html>
