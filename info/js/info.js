@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cardInfo = document.getElementById('cardInfo');
     cardInfo.innerHTML = `
-        <img src="${image}" alt="${name}" style="height: 300px; width: 500px; border-radius: 7px; media (max-width: 401px){.${name}{width:300px;}}">
+        <img src="${image}" alt="${name}">
         <h2>${name}</h2>
         <p>${description}</p>
+        <a href = "./attractions.html">Вернуться назад</p>
     `;
 });

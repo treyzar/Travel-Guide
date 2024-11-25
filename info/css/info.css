@@ -118,6 +118,48 @@ a {
   font-size: 15px;
 }
 
+.card img {
+  width: 500px;
+  border-radius: 5px;
+  height: 350px;
+}
+
+.card a {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.203);
+  color: #000000;
+  transition: background-color, color, 0.3s;
+}
+
+.card a:hover {
+  background-color: #000000;
+  color: #fff;
+}
+
+@media (max-width: 401px) {
+  .card img {
+    width: 395px;
+    border-radius: 0;
+  }
+  .card p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .card h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
 .footer {
   width: 100%;
   height: 200px;
@@ -188,7 +230,7 @@ a {
   }
   .footer__container-icons {
     padding-top: 15px;
-    gap: 5px;
+    gap: 10px;
   }
   .footer__container-btn {
     height: 40px;
