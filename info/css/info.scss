@@ -108,13 +108,17 @@ a{
     height: 660px;
 }
 .card h2{
-    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    font-size: 45px;
     margin-top: 20px;
 }
 
 .card p{
+    display: flex;
+    justify-content: center;
     margin-top: 25px;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 

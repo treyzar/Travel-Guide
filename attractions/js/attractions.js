@@ -26,11 +26,6 @@ async function fetchAttractions() {
 
         attractions.forEach(attraction => {
             const description = attractionsDescriptions.find(desc => desc.id === attraction.id);
-            if (description) {
-                attraction.description = description.description;
-            } else {
-                attraction.description = 'Описание отсутствует';
-            }
         });
 
         displayPage();
@@ -55,6 +50,7 @@ async function fetchDescriptions() {
     }
 }
 
+
 function displayAttractions(data) {
     document.getElementById("preloader_malc").style.display = "flex"; 
     cardsContainer.innerHTML = '';
@@ -78,14 +74,16 @@ function displayAttractions(data) {
             const urlParams = new URLSearchParams();
             urlParams.append('name', attraction.name);
             urlParams.append('image', attraction.image);
-            urlParams.append('description', attraction.description);
+            urlParams.append('description2', attraction.description2);
+            
+            
             window.location.href = `./info.html?${urlParams.toString()}`;
         });
         cardsContainer.appendChild(card);
         document.getElementById("preloader_malc").style.display = "none"; 
+        // console.log('description2', attraction.description2);
     });
 }
-
 function updatePagination() {
     const totalPages = Math.ceil(filteredAttractions.length / itemsPerPage);
     pageInfo.textContent = `Страница ${currentPage} из ${totalPages}`;
