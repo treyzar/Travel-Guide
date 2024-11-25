@@ -100,9 +100,8 @@ a {
   justify-content: center;
   max-width: 100%;
   background-color: #fff;
-  border-radius: 5px;
   box-shadow: 0px 0px 10px 6px rgba(34, 60, 80, 0.2);
-  height: 600px;
+  height: 660px;
 }
 
 .card h2 {
@@ -117,7 +116,7 @@ a {
 
 .footer {
   width: 100%;
-  height: 220px;
+  height: 200px;
   background-color: rgba(0, 0, 0, 0.203);
 }
 
@@ -152,7 +151,7 @@ a {
   display: flex;
   justify-content: center;
   gap: 10px;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .footer__container-btn {
@@ -167,8 +166,6 @@ a {
 
 @media (max-width: 401px) {
   .footer {
-    height: auto;
-    padding: 20px 0;
     background-color: rgba(0, 0, 0, 0.274);
   }
   .footer__container {
@@ -194,4 +191,4 @@ a {
     width: 40px;
     color: #fff;
   }
-}
+}/*# sourceMappingURL=info.css.map */

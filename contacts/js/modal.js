@@ -26,13 +26,13 @@ function submitForm() {
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(emailInput.value)) {
-        alert('введите емейл адрес');
+        alert('введите емейл адрес который включает в себя символ @ с окончанием .com/.ru');
         return;
     }
 
     const phonePattern = /^\+?\d{10,14}$/;
     if (!phonePattern.test(phoneInput.value)) {
-        alert('введите номер для валидации');
+        alert('введите номер для валидации без лишних знаков от 10 до 14 цифр');
         return;
     }
 
