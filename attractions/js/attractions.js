@@ -1,5 +1,4 @@
 const url = 'https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd';
-const URLdescriptions = 'https://672b2e13976a834dd025f082.mockapi.io/travelguide/info';
 
 const cardsContainer = document.getElementById('cardsContainer');
 const searchInput = document.getElementById('searchInput');
@@ -81,8 +80,7 @@ function displayAttractions(data) {
         });
         cardsContainer.appendChild(card);
         document.getElementById("preloader_malc").style.display = "none"; 
-        // console.log('description2', attraction.description2);
-    });
+        });
 }
 function updatePagination() {
     const totalPages = Math.ceil(filteredAttractions.length / itemsPerPage);
