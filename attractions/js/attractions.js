@@ -75,12 +75,14 @@ function displayAttractions(data) {
             urlParams.append('name', attraction.name);
             urlParams.append('image', attraction.image);
             urlParams.append('description2', attraction.description2);
+            urlParams.append('map', attraction.map);
             
             
             window.location.href = `./info.html?${urlParams.toString()}`;
         });
         cardsContainer.appendChild(card);
         document.getElementById("preloader_malc").style.display = "none"; 
+        
         });
 }
 function addPagination() {
