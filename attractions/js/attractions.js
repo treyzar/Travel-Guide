@@ -1,4 +1,5 @@
 const url = 'https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd';
+const URLdescriptions =  'https://672b2e13976a834dd025f082.mockapi.io/travelguide/info';
 
 const cardsContainer = document.getElementById('cardsContainer');
 const searchInput = document.getElementById('searchInput');
@@ -27,8 +28,8 @@ async function fetchAttractions() {
             const description = attractionsDescriptions.find(desc => desc.id === attraction.id);
         });
 
-        displayPage();
-        updatePagination();
+        display();
+        addPagination();
     } catch (error) {
         console.error('Ошибка при получении данных:', error);
     } finally { 
@@ -82,7 +83,7 @@ function displayAttractions(data) {
         document.getElementById("preloader_malc").style.display = "none"; 
         });
 }
-function updatePagination() {
+function addPagination() {
     const totalPages = Math.ceil(filteredAttractions.length / itemsPerPage);
     pageInfo.textContent = `Страница ${currentPage} из ${totalPages}`;
     
@@ -101,11 +102,11 @@ function filterAttractions() {
     });
 
     currentPage = 1;
-    updatePagination();
-    displayPage();
+    addPagination();
+    display();
 }
 
-function displayPage() {
+function display() {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const pageAttractions = filteredAttractions.slice(startIndex, endIndex);
@@ -118,8 +119,8 @@ categoryFilter.addEventListener('change', filterAttractions);
 prevPageButton.addEventListener('click', () => {
     if (currentPage > 1) {
         currentPage--;
-        displayPage();
-        updatePagination();
+        display();
+        addPagination();
     }
 });
 
@@ -127,8 +128,8 @@ nextPageButton.addEventListener('click', () => {
     const totalPages = Math.ceil(filteredAttractions.length / itemsPerPage);
     if (currentPage < totalPages) {
         currentPage++;
-        displayPage();
-        updatePagination();
+        display();
+        addPagination();
     }
 });
 
