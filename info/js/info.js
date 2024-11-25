@@ -7,12 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cardInfo = document.getElementById('cardInfo');
     cardInfo.innerHTML = `
-        <img src="${image}" alt="${name}">
-        <h2>${name}</h2>
-        <p>${description}</p>
-        <div id="map">
-                <iframe src="${map}" width="250" height="250" frameborder="0"></iframe>
+    <div class="container">
+        <div class="card">
+            <div class="image-map-container">
+                <img src="${image}" alt="${name}" class="card-image">
+                <iframe src="${map}" frameborder="0" class="map"></iframe>
+            </div>
+            <h2>${name}</h2>
+            <p>${description}</p>
+            <a href="./attractions.html" class="back-button">Вернуться назад</a>
         </div>
-        <a href = "./attractions.html">Вернуться назад</p>
+    </div>
     `;
 });

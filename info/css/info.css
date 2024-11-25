@@ -32,7 +32,6 @@ a {
   flex-direction: column;
   cursor: pointer;
 }
-
 .navbar-toggle .bar {
   height: 3px;
   width: 25px;
@@ -50,15 +49,12 @@ a {
 .navbar-menu-text {
   transition: color 0.7s ease;
 }
-
 .navbar-menu-text:hover {
   color: #000000;
 }
-
 .navbar-menu li {
   margin-left: 20px;
 }
-
 .navbar-menu li a {
   color: white;
   text-decoration: none;
@@ -79,7 +75,7 @@ a {
     right: 0;
     opacity: 0;
     transform: translateX(100%);
-    transition: opacity 0.3s ease, transform 0.3s ease background-color 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
   }
   .navbar-menu.active {
     display: flex;
@@ -93,160 +89,134 @@ a {
     text-align: center;
   }
 }
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
 .card {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  background-color: #fff;
-  box-shadow: 0px 0px 10px 6px rgba(34, 60, 80, 0.2);
-  height: 1000px;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 620px;
 }
-
+.card .image-map-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.card .image-map-container .card-image {
+  width: 48%;
+  border-radius: 10px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 300px;
+}
+.card .image-map-container .map {
+  width: 400px;
+  height: 300px;
+  border-radius: 15px;
+  background-color: #000000;
+}
 .card h2 {
-  display: flex;
-  justify-content: center;
-  font-size: 45px;
-  margin-top: 20px;
+  font-size: 28px;
+  margin: 20px 0 10px;
+  text-align: center;
 }
-
 .card p {
-  display: flex;
-  justify-content: center;
-  margin-top: 25px;
-  font-size: 15px;
+  font-size: 16px;
+  text-align: center;
+  margin: 10px 0 20px;
 }
-
-.card img {
-  width: 500px;
+.card .back-button {
+  display: inline-block;
+  padding: 10px 20px;
   border-radius: 5px;
-  height: 350px;
-}
-
-.card a {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  font-size: 20px;
-  background-color: rgba(0, 0, 0, 0.203);
-  color: #000000;
-  transition: background-color, color, 0.3s;
-}
-
-.card a:hover {
-  background-color: #000000;
+  font-size: 16px;
+  background-color: #848484;
   color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
-
-@media (max-width: 401px) {
-  .card img {
-    width: 395px;
-    border-radius: 0;
-  }
-  .card p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  .card h2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-}
-.myCart {
-  display: block;
-  height: 250px;
-  width: 250px;
-  background-color: #000000;
+.card .back-button:hover {
+  background-color: #5a5a5a;
 }
 
 .map {
-  background-color: #000000;
+  border-radius: 5px;
 }
 
-.cart {
-  margin-bottom: 40px;
+@media (max-width: 401px) {
+  .card {
+    padding: 10px;
+  }
+  .card .image-map-container {
+    flex-direction: column;
+  }
+  .card .image-map-container .card-image, .card .image-map-container .map {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .card h2 {
+    font-size: 24px;
+    margin: 10px 0;
+  }
+  .card p {
+    font-size: 14px;
+    margin: 10px 0;
+  }
+  .card .back-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }
-.cart__container {
-  width: 100%;
-  height: 700px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.cart__container-cart {
-  background-color: rgba(0, 0, 0, 0.274);
-  border-radius: 7px;
-  width: 750px;
-  padding: 5px 5px 5px 5px;
-}
-.cart__container-cart2 {
-  background-color: rgba(0, 0, 0, 0.274);
-  border-radius: 7px;
-  width: 750px;
-  padding: 5px 5px 5px 5px;
-  display: none;
-}
-.cart__container-title {
-  font-size: 50px;
-  font-weight: 400;
-  padding-bottom: 50px;
-}
-
 .footer {
   width: 100%;
   height: 200px;
   background-color: rgba(0, 0, 0, 0.203);
 }
-
 .footer__container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .footer__container-connection {
   font-size: 20px;
   color: #fff;
   padding-top: 15px;
   transition: color 1s linear;
 }
-
 .footer__container-connection:hover {
   color: #000000;
 }
-
-.footer__container-text {
+.footer__container-text, .footer__container-paragraph {
   color: #fff;
   padding-top: 20px;
 }
-
-.footer__container-paragraph {
-  color: #fff;
-  padding-top: 20px;
-}
-
 .footer__container-icons {
   display: flex;
   justify-content: center;
   gap: 10px;
   padding-top: 10px;
 }
-
 .footer__container-btn {
   height: 50px;
   width: 50px;
   transition: transform 0.5s ease;
 }
-
 .footer__container-btn:hover {
   transform: translateY(-10px);
 }
@@ -263,8 +233,7 @@ a {
     padding-top: 10px;
     color: #ffffff;
   }
-  .footer__container-text,
-  .footer__container-paragraph {
+  .footer__container-text, .footer__container-paragraph {
     font-size: 14px;
     padding-top: 10px;
     color: #fff;
@@ -278,4 +247,4 @@ a {
     width: 40px;
     color: #fff;
   }
-}/*# sourceMappingURL=info.css.map */
+}
