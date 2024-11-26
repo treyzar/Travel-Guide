@@ -4,12 +4,29 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    if (username.trim() === '' || password.trim() === '') {
-        alert('Пожалуйста, заполните все поля.');
-        return;
-    }
+    console.log('Отправляемые данные:', { username, password });
 
-    localStorage.setItem('username', username);
-    localStorage.setItem('password', password);
+    fetch('https://672b2e13976a834dd025f082.mockapi.io/travelguide/info')
+    .then(response => {
+        console.log('Статус ответа:', response.status);
+        if (!response.ok) {
+            throw new Error('Ошибка сети: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(users => {
+        console.log('Полученные данные:', users);
+        const user = users.find(user => user.username === username && user.password === password);
 
-    window.location.href = './main.html'})
+        if (user) {
+            alert('Вход выполнен успешно!');
+            window.location.href = '/main.html';
+        } else {
+            alert('Ошибка входа: Неверное имя пользователя или пароль');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при входе: ' + error.message);
+    });
+});ё
