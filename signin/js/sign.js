@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const isSignedIn = sessionStorage.getItem('sign');
+  
+    if (isSignedIn === 'true') {
+        console.log('Пользователь авторизован');
+        document.getElementById('sign').style.display = 'none';
+        document.getElementById('reg').style.display = 'none';}})
+
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -20,8 +28,11 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
         if (user) {
             alert('Вход выполнен успешно!');
-            // document.getElementById('reg').style.display = 'none'
-            window.location.href = './main.html';
+            
+            // Добавляем параметр sign = true в sessionStorage
+            sessionStorage.setItem('sign', 'true');
+
+            window.location.href = 'main.html';
         } else {
             alert('Ошибка входа: Неверное имя пользователя или пароль');
         }
@@ -31,4 +42,3 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         alert('Произошла ошибка при входе: ' + error.message);
     });
 });
-

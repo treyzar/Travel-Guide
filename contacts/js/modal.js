@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const isSignedIn = sessionStorage.getItem('sign');
+  
+    if (isSignedIn === 'true') {
+        console.log('Пользователь авторизован');
+        document.getElementById('sign').style.display = 'none';
+        document.getElementById('reg').style.display = 'none';}})
+
 document.getElementById('openModal').addEventListener('click', function() {
     document.getElementById('modal').style.display = 'block';
 });

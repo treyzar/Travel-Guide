@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', function() {
+  const isSignedIn = sessionStorage.getItem('sign');
+
+  if (isSignedIn === 'true') {
+      console.log('Пользователь авторизован');
+      document.getElementById('sign').style.display = 'none';
+      document.getElementById('reg').style.display = 'none';}})
+
 const slider = document.querySelector('.slider');
 const prevButton = document.querySelector('.prev-button');
 const nextButton = document.querySelector('.next-button');

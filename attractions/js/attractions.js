@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const isSignedIn = sessionStorage.getItem('sign');
+  
+    if (isSignedIn === 'true') {
+        console.log('Пользователь авторизован');
+        document.getElementById('sign').style.display = 'none';
+        document.getElementById('reg').style.display = 'none';}})
+
 const url = 'https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd';
 const URLdescriptions =  'https://672b2e13976a834dd025f082.mockapi.io/travelguide/info';
 

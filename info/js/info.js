@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const isSignedIn = sessionStorage.getItem('sign');
+  
+    if (isSignedIn === 'true') {
+        console.log('Пользователь авторизован');
+        document.getElementById('sign').style.display = 'none';
+        document.getElementById('reg').style.display = 'none';}})
+
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get('name');
