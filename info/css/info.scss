@@ -121,7 +121,9 @@ a {
     align-items: center;
     max-width: 800px;
     margin: 0 auto;
-    height: 620px;
+    min-height: 80vh;
+    justify-content: center;
+    
 
     .image-map-container {
         display: flex;

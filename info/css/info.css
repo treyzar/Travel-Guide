@@ -109,7 +109,8 @@ a {
   align-items: center;
   max-width: 800px;
   margin: 0 auto;
-  height: 620px;
+  min-height: 80vh;
+  justify-content: center;
 }
 .card .image-map-container {
   display: flex;

@@ -106,7 +106,9 @@ a{
 }
 .main{
     background-color: rgba(75, 75, 75, 0.203);
-    height: 750px;
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
 }
 
 
