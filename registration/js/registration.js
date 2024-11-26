@@ -28,7 +28,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     .then(data => {
         console.log('Полученные данные:', data);
 
-        // Убираем проверку наличия id
+
         alert('Регистрация прошла успешно!');
         window.location.href = './signin.html';
     })
