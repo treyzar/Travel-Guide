@@ -21,7 +21,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         if (user) {
             alert('Вход выполнен успешно!');
             // document.getElementById('reg').style.display = 'none'
-            window.location.href = '../main.html';
+            window.location.href = './main.html';
         } else {
             alert('Ошибка входа: Неверное имя пользователя или пароль');
         }
