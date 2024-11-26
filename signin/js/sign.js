@@ -37,5 +37,5 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 });
 
 =======
-});ё
+});
 >>>>>>> 9e15cd62096fbd7bc057643854435a3c337fe285
