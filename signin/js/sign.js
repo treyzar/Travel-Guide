@@ -29,7 +29,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         if (user) {
             alert('Вход выполнен успешно!');
             
-            // Добавляем параметр sign = true в sessionStorage
             sessionStorage.setItem('sign', 'true');
 
             window.location.href = 'main.html';

@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isSignedIn === 'true') {
         console.log('Пользователь авторизован');
         document.getElementById('sign').style.display = 'none';
-        document.getElementById('reg').style.display = 'none';}})
+        document.getElementById('reg').style.display = 'none';
+    }
+});
 
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -19,30 +21,35 @@ document.getElementById('registrationForm').addEventListener('submit', function(
 
     console.log('Отправляемые данные:', { username, password });
 
-    fetch('https://672b2e13976a834dd025f082.mockapi.io/travelguide/info', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-    })
-    .then(response => {
-        console.log('Статус ответа:', response.status);
-        if (!response.ok) {
-            throw new Error('Ошибка сети: ' + response.statusText);
+    checkUsername(username)
+    .then(exists => {
+        if (exists) {
+            alert('Ошибка, такое имя пользователя уже есть');
+        } else {
+            fetch('https://672b2e13976a834dd025f082.mockapi.io/travelguide/info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                console.log('Полученные данные:', data);
+                alert('Регистрация прошла успешно!');
+                window.location.href = './signin.html';
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка при регистрации: ' + error.message);
+            });
         }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Полученные данные:', data);
-
-
-        alert('Регистрация прошла успешно!');
-        window.location.href = './signin.html';
     })
     .catch(error => {
         console.error('Ошибка:', error);
-        alert('Произошла ошибка при регистрации: ' + error.message);
+        alert('Произошла ошибка при проверке имени пользователя: ' + error.message);
     });
 });
 
@@ -56,4 +63,14 @@ function validateInput(username, password) {
         return false;
     }
     return true;
+}
+
+function checkUsername(username) {
+    return fetch('https://672b2e13976a834dd025f082.mockapi.io/travelguide/info')
+    .then(response => {
+        return response.json();
+    })
+    .then(users => {
+        return users.some(user => user.username === username);
+    });
 }
