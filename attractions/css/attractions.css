@@ -107,11 +107,6 @@ a {
   height: 750px;
 }
 
-@media (max-height: 1440px) {
-  .main {
-    height: 1000px;
-  }
-}
 h1 {
   margin-bottom: 20px;
 }
