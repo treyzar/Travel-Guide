@@ -30,7 +30,7 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form id="registrationForm">
         <h3>Зарегистрируйтесь здесь</h3>
 
         <label for="username">Имя или номер телефона</label>
@@ -39,14 +39,15 @@
         <label for="password">Пароль</label>
         <input type="password" placeholder="Password" id="password" required>
 
-         <button onclick="window.location.href ='./main.html'"; class="register">Зарегистрироваться</button>
+        <button class="register">Зарегистрироваться</button>
         <p class="haveacc">
             Есть аккаунт? Войдите <a href="./signin.html" class="here">здесь!</a>
         </p>
         <div class="social">
-          <a class="go" href = 'https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fwww.google.ru%2F&ec=GAZAmgQ&hl=ru&ifkv=ARpgrqdktSz1IWM1o_rRdPLbJfUID_-5LBEAvzXuJ5akADminyP8qZ-CibDqAgE01js1N-NSQsu0aQ&passive=true&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S134245257%3A1728894805733880&ddm=0'><i class="fab fa-google"></i>  Google</a>
+          <a class="go" href="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fwww.google.ru%2F&ec=GAZAmgQ&hl=ru&ifkv=ARpgrqdktSz1IWM1o_rRdPLbJfUID_-5LBEAvzXuJ5akADminyP8qZ-CibDqAgE01js1N-NSQsu0aQ&passive=true&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S134245257%3A1728894805733880&ddm=0"><i class="fab fa-google"></i>  Google</a>
           <a class="fb" href="http://www.facebook.com.vn/"><i class="fab fa-facebook"></i>  Facebook</a>
         </div>
     </form>
+    <script src = './registration/js/'></script>
 </body>
 </html>
