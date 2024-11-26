@@ -139,7 +139,7 @@ box-shadow: 0px 10px 11px 5px rgba(34, 60, 80, 0.2);
     bottom: -80px;
 }
 form{
-    height: 590px;
+    height: 490px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
@@ -197,67 +197,6 @@ button{
     border-radius: 5px;
     cursor: pointer;
 }
-.social{
-  display: flex;
-}
-.social div{
-  background: red;
-  width: 150px;
-  border-radius: 3px;
-  padding: 5px;
-  background-color: rgba(0, 0, 0, 0.203);
-  color: #eaf0fb;
-  text-align: center;
-}
-.social div:hover{
-  background-color: rgba(255,255,255,0.47);
-}
-.social .fb{
-  margin-left: 25px;
-}
-.social i{
-  margin-right: 4px;
-}
-.go{
-    margin-top: 20px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.203);
-    transition: background-color 1s ease;
-    color: #080710;
-    transition: color 1s ease;
-    padding: 15px 0;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.go:hover{
-    background-color: #000000;
-    color: #ffffff;
-}
-.fb{
-    margin-top: 20px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.203);
-    transition: background-color 1s ease;
-    color: #080710;
-    transition: color 1s ease;
-    padding: 15px 0;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.fb:hover{
-    background-color: #000000;
-    color: #ffffff;
-}
 .haveacc{
 display: flex;
 justify-content: center;
@@ -290,7 +229,7 @@ padding-top: 20px
     background-color: #000000;
     color: #ffffff;
 }
-/* Общие стили для формы */
+
 .background {
     width: 430px;
     height: 520px;

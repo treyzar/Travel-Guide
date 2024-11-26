@@ -31,13 +31,15 @@
         <div class="shape"></div>
     </div>
     <form id="registrationForm">
+        <h3 class="FormLabel">Регистрация</h3>
         <label for="username">Имя пользователя:</label>
-        <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+        <input type="text" id="username" name="username" required minlength="3" maxlength="20" placeholder="Введите имя пользователя...">
         <br>
         <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required minlength="6">
+        <input type="password" id="password" name="password" required minlength="6" placeholder="Введите пароль...">
         <br>
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit" class="submit">Зарегистрироваться</button>
+        <p class="haveacc">Есть аккаунт? Войдите<a href="./signin.html" class="here"> здесь</a></p>
     </form>
     <script src = './registration/js/registration.js'></script>
 </body>
