@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
         if (user) {
             alert('Вход выполнен успешно!');
-            window.location.href = '/main.html';
+            window.location.href = '/index.html';
         } else {
             alert('Ошибка входа: Неверное имя пользователя или пароль');
         }
