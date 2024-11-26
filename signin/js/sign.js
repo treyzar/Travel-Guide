@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
         if (user) {
             alert('Вход выполнен успешно!');
-            window.location.href = './main.html';
+            window.location.href = 'https://treyzar.github.io/Travel-Guide/main.html';
         } else {
             alert('Ошибка входа: Неверное имя пользователя или пароль');
         }
