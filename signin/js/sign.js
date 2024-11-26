@@ -20,10 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
         if (user) {
             alert('Вход выполнен успешно!');
-<<<<<<< HEAD
             document.getElementById('reg').style.display = 'none'
-=======
->>>>>>> 9e15cd62096fbd7bc057643854435a3c337fe285
             window.location.href = '../main.html';
         } else {
             alert('Ошибка входа: Неверное имя пользователя или пароль');
@@ -33,9 +30,5 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         console.error('Ошибка:', error);
         alert('Произошла ошибка при входе: ' + error.message);
     });
-<<<<<<< HEAD
 });
 
-=======
-});
->>>>>>> 9e15cd62096fbd7bc057643854435a3c337fe285
