@@ -63,6 +63,7 @@ function displayAttractions(data) {
     document.getElementById("preloader_malc").style.display = "flex"; 
     cardsContainer.innerHTML = '';
     if (data.length === 0) {
+        document.getElementById("preloader_malc").style.display = "none"; 
         cardsContainer.innerHTML = '<p>По вашему запросу ничего не найдено.</p>';
                 return;
     }
