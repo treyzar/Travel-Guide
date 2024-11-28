@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isSignedIn === 'true') {
         console.log('Пользователь авторизован');
         document.getElementById('sign').style.display = 'none';
-        document.getElementById('reg').style.display = 'none';}})
+        document.getElementById('reg').style.display = 'none';
+        document.getElementById('logout').style.display = 'flex'    }})
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();

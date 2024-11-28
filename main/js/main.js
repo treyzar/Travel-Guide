@@ -1,10 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const isSignedIn = sessionStorage.getItem('sign');
+  let isSignedIn = sessionStorage.getItem('sign');
 
   if (isSignedIn === 'true') {
-      console.log('Пользователь авторизован');
-      document.getElementById('sign').style.display = 'none';
-      document.getElementById('reg').style.display = 'none';}})
+    console.log('Пользователь авторизован');
+    document.getElementById('sign').style.display = 'none';
+    document.getElementById('reg').style.display = 'none';
+    document.getElementById('logout').style.display = 'block';
+
+    document.getElementById('logout').addEventListener('click', function() {
+      isSignedIn = false;
+      document.getElementById('sign').style.display = 'block';
+      document.getElementById('reg').style.display = 'block';
+      document.getElementById('logout').style.display = 'none';
+      sessionStorage.removeItem('sign');
+    });
+  }
+});
 
 const slider = document.querySelector('.slider');
 const prevButton = document.querySelector('.prev-button');

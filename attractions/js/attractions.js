@@ -144,3 +144,4 @@ nextPageButton.addEventListener('click', () => {
 });
 
 fetchAttractions();
+
