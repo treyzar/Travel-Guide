@@ -1,30 +1,33 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const isSignedIn = sessionStorage.getItem('sign');
-  
-    if (isSignedIn === 'true') {
-        console.log('Пользователь авторизован');
-        document.getElementById('sign').style.display = 'none';
-        document.getElementById('reg').style.display = 'none';}})
+document.addEventListener("DOMContentLoaded", () => {
+  const isSignedIn = sessionStorage.getItem("sign");
 
-document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    const image = urlParams.get('image');
-    const description = urlParams.get('description2');
-    const map = urlParams.get('map')
+  if (isSignedIn === "true") {
+    console.log("Пользователь авторизован");
+    document.getElementById("sign").style.display = "none";
+    document.getElementById("reg").style.display = "none";
+  }
 
-    const cardInfo = document.getElementById('cardInfo');
-    cardInfo.innerHTML = `
-    <div class="container">
-        <div class="card">
-            <div class="image-map-container">
-                <img src="${image}" alt="${name}" class="card-image">
-                <iframe src="${map}" frameborder="0" class="map"></iframe>
-            </div>
-            <h2>${name}</h2>
-            <p>${description}</p>
-            <a href="./attractions.html" class="back-button">Вернуться назад</a>
-        </div>
-    </div>
-    `;
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+  const attraction = JSON.parse(sessionStorage.getItem(id));
+  const cardInfo = document.getElementById("cardInfo");
+
+  if (!attraction) {
+    cardInfo.innerHTML = "<p>Attraction not found.</p>";
+    return;
+  }
+
+  cardInfo.innerHTML = `
+          <div class="container">
+              <div class="card">
+                  <div class="image-map-container">
+                      <img src="${attraction.image}" alt="${attraction.name}" class="card-image">
+                      <iframe src="${attraction.map}" frameborder="0" class="map"></iframe>
+                  </div>
+                  <h2>${attraction.name}</h2>
+                  <p>${attraction.description2}</p>
+                  <a href="./attractions.html" class="back-button">Вернуться назад</a>
+              </div>
+          </div>
+      `;
 });

@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const url = "https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd";
 
-
 const cardsContainer = document.getElementById("cardsContainer");
 const searchInput = document.getElementById("searchInput");
 const categoryFilter = document.getElementById("categoryFilter");
@@ -25,18 +24,19 @@ let filteredAttractions = [];
 
 async function fetchAttractions() {
   try {
-    const response = await fetch(url, {
-      method: "GET",
-    });
-    const data = await response.json();
+    const response = await fetch(url, { method: "GET" }); // <-- Add this line
+    const data = await response.json(); // <-- Now data is defined
     attractions = data;
     filteredAttractions = data;
+
+    attractions.forEach((attraction) => {
+      sessionStorage.setItem(attraction.id, JSON.stringify(attraction));
+    });
 
     display();
     addPagination();
   } catch (error) {
     console.error("Ошибка при получении данных:", error);
-  } finally {
   }
 }
 
@@ -60,14 +60,9 @@ function displayAttractions(data) {
             <p style = "padding-top: 5px;"><strong>Адрес:</strong> ${attraction.addres}</p>
         `;
     card.addEventListener("click", function redirectToPage() {
-      const urlParams = new URLSearchParams();
-      urlParams.append("name", attraction.name);
-      urlParams.append("image", attraction.image);
-      urlParams.append("description2", attraction.description2);
-      urlParams.append("map", attraction.map);
-
-      window.location.href = `./info.html?${urlParams.toString()}`;
+      window.location.href = `./info.html?id=${attraction.id}`;
     });
+
     cardsContainer.appendChild(card);
     document.getElementById("preloader_malc").style.display = "none";
   });
