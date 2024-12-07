@@ -1,46 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./info/css/info.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./info/css/info.css" />
     <title>Информация о карточке</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="navbar-brand"><a href="./main.html" class="navbar__logo"><img src="./main/img/logo2.png" alt="" class="navbar__logo-img"></a></div>
-        <div class="navbar-toggle" id="navbarToggle">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <ul class="navbar-menu" id="navbarMenu">
-            <li><a href="./main.html" class="navbar-menu-text">Главная</a></li>
-            <li><a href="./contacts.html" class="navbar-menu-text">Контакты</a></li>
-            <li><a href="./signin.html" class="navbar-menu-text" id="sign">Войти</a></li>
-            <li><a href="./registration.html" class="navbar-menu-text" id="reg">Зарегистрироваться</a></li>
-        </ul>
+      <div class="navbar-brand">
+        <a href="./main.html" class="navbar__logo"
+          ><img src="./main/img/logo2.png" alt="" class="navbar__logo-img"
+        /></a>
+      </div>
+      <div class="navbar-toggle" id="navbarToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="./main.html" class="navbar-menu-text">Главная</a></li>
+        <li><a href="./contacts.html" class="navbar-menu-text">Контакты</a></li>
+        <li>
+          <a href="./signin.html" class="navbar-menu-text" id="sign">Войти</a>
+        </li>
+        <li>
+          <a href="./registration.html" class="navbar-menu-text" id="reg"
+            >Зарегистрироваться</a
+          >
+        </li>
+      </ul>
     </nav>
     <script src="./info/js/navbar.js"></script>
-    <div class="card" id="cardInfo"></div>
-    <script src="./info/js/info.js"></script>
-<footer class="footer">
-    <div class="footer__wrap">
-        <div class="footer__container">
-            <h1 class="footer__container-text">
-                All Rights Reserved © Round Deer
-            </h1>
-            <p class="footer__container-paragraph">
-                 Все права защищены © Round Deer
-            </p>
-            <a href="./contacts.html" class="footer__container-connection">Связаться с нами</a>
-            <div class="footer__container-icons">
-                <a href="https://vk.com/" class="footer__container-btn"><img src="./main/img/icons8-vk.svg" alt="" class="footer__cointainer-img"></a>
-                <a href="https://www.youtube.com/" class="footer__container-btn"><img src="./main/img/icons8-youtube.svg" alt="" class="footer__container-img"></a>
-                <a href="https://web.telegram.org/a/" class="footer__container-btn"><img src="./main/img/icons8-телеграм.svg" alt="" class="footer__container-img"></a>
-            </div>
-        </div>   
+    <div id="fullscreen-gallery" class="fullscreen-gallery">
+      <span id="close-gallery" class="close">&times;</span>
+      <img
+        id="fullscreen-image"
+        src=""
+        alt="Fullscreen Image"
+        class="fullscreen-image"
+      />
+      <div id="gallery-controls" class="gallery-controls">
+        <button id="prev-image" class="prev-image">&lt;</button>
+        <button id="next-image" class="next-image">&gt;</button>
+      </div>
     </div>
-</footer>
-</body>
+    <div class="card" id="cardInfo"></div>
+
+    <script src="./info/js/info.js"></script>
+    <footer class="footer">
+      <div class="footer__wrap">
+        <div class="footer__container">
+          <h1 class="footer__container-text">
+            All Rights Reserved © Round Deer
+          </h1>
+          <p class="footer__container-paragraph">
+            Все права защищены © Round Deer
+          </p>
+          <a href="./contacts.html" class="footer__container-connection"
+            >Связаться с нами</a
+          >
+          <div class="footer__container-icons">
+            <a href="https://vk.com/" class="footer__container-btn"
+              ><img
+                src="./main/img/icons8-vk.svg"
+                alt=""
+                class="footer__cointainer-img"
+            /></a>
+            <a href="https://www.youtube.com/" class="footer__container-btn"
+              ><img
+                src="./main/img/icons8-youtube.svg"
+                alt=""
+                class="footer__container-img"
+            /></a>
+            <a href="https://web.telegram.org/a/" class="footer__container-btn"
+              ><img
+                src="./main/img/icons8-телеграм.svg"
+                alt=""
+                class="footer__container-img"
+            /></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
