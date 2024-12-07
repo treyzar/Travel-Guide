@@ -9,8 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const url = "https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd";
-const URLdescriptions =
-  "https://672b2e13976a834dd025f082.mockapi.io/travelguide/info";
+
 
 const cardsContainer = document.getElementById("cardsContainer");
 const searchInput = document.getElementById("searchInput");
