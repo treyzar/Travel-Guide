@@ -139,10 +139,10 @@ a {
     }
 
     .map {
-      width: 400px;
-      height: 300px;
-      border-radius: 15px;
-      background-color: #000000;
+      width: 450px;
+      height: 950px;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
     }
   }
 
@@ -289,56 +289,71 @@ a {
   }
 }
 
-.fullscreen-gallery {
+/* Добавьте этот стиль для размытия фона */
+.blur-background {
+  filter: blur(5px);
+  transition: filter 0.5s ease;
+}
+
+/* Стили для полноэкранной галереи */
+#fullscreen-gallery {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-
-  &.active {
-    opacity: 1;
-    visibility: visible;
-  }
+  transition: opacity 0.5s ease-in-out;
 }
 
-.fullscreen-image {
+#fullscreen-gallery.active {
+  display: flex;
+  opacity: 1;
+}
+
+#fullscreen-gallery img {
   max-width: 90%;
   max-height: 90%;
   object-fit: contain;
+  transition: transform 0.5s ease-in-out;
 }
 
-.close-gallery {
+#fullscreen-gallery button {
   position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.gallery-controls {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-}
-
-.gallery-controls button {
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
+  background: none;
   border: none;
-  padding: 10px 20px;
-  font-size: 20px;
+  color: white;
+  font-size: 2rem;
   cursor: pointer;
-  margin: 0 10px;
+}
+
+#close-gallery {
+  top: 10px;
+  right: 20px;
+}
+
+#prev-image {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#next-image {
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.gallery-image {
+  max-width: 495px;
+  height: 450px;
+  border-radius: 5px;
+}
+.gallery-image:last-of-type {
+  height: 500px;
+  width: 495px;
 }

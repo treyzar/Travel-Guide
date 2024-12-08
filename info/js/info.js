@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Build image gallery HTML
   let galleryHTML = "";
   if (attraction.images && attraction.images.length > 0) {
     galleryHTML = '<div class="gallery">';
@@ -26,78 +25,107 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     galleryHTML += "</div>";
   } else {
-    galleryHTML = `<img src="${attraction.image}" alt="${attraction.name}" class="card-image">`;
+    galleryHTML = `<img src="${attraction.image}" alt="${attraction.name}" class="card-image">`; // If no array, use single image
   }
 
-  cardInfo.innerHTML = `
-    <div class="container">
-      <div class="card">
-        <div class="image-map-container" id="image-gallery-container">
-          ${galleryHTML}
-          <iframe src="${attraction.map}" frameborder="0" class="map"></iframe>
-        </div>
-        <h2>${attraction.name}</h2>
-        <p>${attraction.description2 || attraction.description}</p>
-        <a href="./attractions.html" class="back-button">Вернуться назад</a>
+  cardInfo.innerHTML = ` 
+      <div class="container">
+          <div class="card">
+          <h2>${attraction.name}</h2>
+              <div class="image-map-container" id="image-gallery-container">
+                  ${galleryHTML} <iframe src="${attraction.map}" frameborder="0" class="map"></iframe>
+              </div>
+              <p>${attraction.description2}</p>
+              <a href="./attractions.html" class="back-button">Вернуться назад</a>
+          </div>
       </div>
-    </div>
   `;
 
-  // Add event listener after the HTML is set
-  if (attraction.images && attraction.images.length > 0) {
-    const galleryContainer = document.getElementById("image-gallery-container");
-    const galleryImages = galleryContainer.querySelectorAll(".gallery-image");
-    let currentImageIndex = 0;
+  // Fullscreen Gallery Functionality (place this AFTER cardInfo.innerHTML is set)
+  const galleryContainer = document.getElementById("image-gallery-container");
+  const fullscreenGallery = document.getElementById("fullscreen-gallery");
+  const fullscreenImage = document.getElementById("fullscreen-image");
+  const closeGallery = document.getElementById("close-gallery");
+  const prevImage = document.getElementById("prev-image");
+  const nextImage = document.getElementById("next-image");
 
-    galleryContainer.addEventListener("click", () => {
-      openFullscreenGallery(attraction.images, 0);
+  let currentImageIndex = 0;
+  let images = [];
+
+  if (galleryContainer) {
+    // Check if galleryContainer exists
+
+    galleryContainer.addEventListener("click", (event) => {
+      if (attraction.images && attraction.images.length > 0) {
+        const clickedImage = event.target.closest(".gallery-image"); // Only open if a .gallery-image was clicked
+        if (clickedImage) {
+          images = attraction.images;
+          currentImageIndex = Array.from(
+            galleryContainer.querySelectorAll(".gallery-image")
+          ).indexOf(clickedImage);
+
+          openFullscreenGallery();
+        }
+      } else {
+        images = [attraction.image]; // Single image case
+        currentImageIndex = 0;
+        openFullscreenGallery();
+      }
     });
 
-    // Fullscreen gallery functionality
-    const fullscreenGallery = document.getElementById("fullscreen-gallery");
-    const fullscreenImage = document.getElementById("fullscreen-image");
-    const closeGallery = document.getElementById("close-gallery");
-    const prevImage = document.getElementById("prev-image");
-    const nextImage = document.getElementById("next-image");
+    function openFullscreenGallery() {
+      fullscreenImage.src = images[currentImageIndex];
+      fullscreenGallery.classList.add("active");
 
-    function openFullscreenGallery(imageArray, index) {
-      images = imageArray;
-      currentImageIndex = index;
-      if (fullscreenImage) fullscreenImage.src = images[currentImageIndex];
-      if (fullscreenGallery) {
-        fullscreenGallery.classList.add("active");
-      }
+      setTimeout(() => {
+        fullscreenGallery.style.opacity = 1; // Fade in the gallery
+      }, 100);
     }
 
     function closeFullscreenGallery() {
-      if (fullscreenGallery) {
+      fullscreenGallery.style.opacity = 0; // Fade out the gallery
+
+      setTimeout(() => {
         fullscreenGallery.classList.remove("active");
-      }
+      }, 500); // Match with transition duration
     }
 
     function showPrevImage() {
       if (currentImageIndex > 0) {
         currentImageIndex--;
-        if (fullscreenImage) fullscreenImage.src = images[currentImageIndex];
+        updateFullscreenImage();
       }
     }
 
     function showNextImage() {
       if (currentImageIndex < images.length - 1) {
         currentImageIndex++;
-        if (fullscreenImage) fullscreenImage.src = images[currentImageIndex];
+        updateFullscreenImage();
       }
     }
 
+    function updateFullscreenImage() {
+      fullscreenImage.style.transform = "translateX(-100%)"; // Start off-screen to the left
+
+      setTimeout(() => {
+        // Allow the initial transition to finish before updating src
+        fullscreenImage.src = images[currentImageIndex];
+        fullscreenImage.style.transform = "translateX(0)"; // Move back into view with transition
+      }, 100);
+    }
+
     if (closeGallery) {
+      // Check if closeGallery exists before adding listener
       closeGallery.addEventListener("click", closeFullscreenGallery);
     }
 
     if (prevImage) {
+      // Check if prevImage exists before adding listener
       prevImage.addEventListener("click", showPrevImage);
     }
 
     if (nextImage) {
+      // Check if nextImage exists before adding listener
       nextImage.addEventListener("click", showNextImage);
     }
   }

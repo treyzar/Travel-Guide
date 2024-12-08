@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./info/css/info.css" />
+    <link rel="stylesheet" href="./info/css/css/info.css" />
     <title>Информация о карточке</title>
   </head>
   <body>
@@ -32,21 +32,16 @@
       </ul>
     </nav>
     <script src="./info/js/navbar.js"></script>
-    <div id="fullscreen-gallery" class="fullscreen-gallery">
-      <span id="close-gallery" class="close">&times;</span>
-      <img
-        id="fullscreen-image"
-        src=""
-        alt="Fullscreen Image"
-        class="fullscreen-image"
-      />
-      <div id="gallery-controls" class="gallery-controls">
-        <button id="prev-image" class="prev-image">&lt;</button>
-        <button id="next-image" class="next-image">&gt;</button>
+    <div id="cardInfo"></div>
+    <div id="fullscreen-gallery" class="hidden">
+      <div class="fullscreen-gallery-content">
+        <img id="fullscreen-image" src="" alt="" />
+        <button id="close-gallery">&times;</button
+        ><span id="close-gallery-span">Close</span>
+        <button id="prev-image">&lt;</button>
+        <button id="next-image">&gt;</button>
       </div>
     </div>
-    <div class="card" id="cardInfo"></div>
-
     <script src="./info/js/info.js"></script>
     <footer class="footer">
       <div class="footer__wrap">
