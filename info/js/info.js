@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
   `;
 
-  // Fullscreen Gallery Functionality (place this AFTER cardInfo.innerHTML is set)
   const galleryContainer = document.getElementById("image-gallery-container");
   const fullscreenGallery = document.getElementById("fullscreen-gallery");
   const fullscreenImage = document.getElementById("fullscreen-image");
@@ -53,11 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let images = [];
 
   if (galleryContainer) {
-    // Check if galleryContainer exists
 
     galleryContainer.addEventListener("click", (event) => {
       if (attraction.images && attraction.images.length > 0) {
-        const clickedImage = event.target.closest(".gallery-image"); // Only open if a .gallery-image was clicked
+        const clickedImage = event.target.closest(".gallery-image");
         if (clickedImage) {
           images = attraction.images;
           currentImageIndex = Array.from(
@@ -67,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
           openFullscreenGallery();
         }
       } else {
-        images = [attraction.image]; // Single image case
+        images = [attraction.image];
         currentImageIndex = 0;
         openFullscreenGallery();
       }
@@ -78,16 +76,16 @@ document.addEventListener("DOMContentLoaded", () => {
       fullscreenGallery.classList.add("active");
 
       setTimeout(() => {
-        fullscreenGallery.style.opacity = 1; // Fade in the gallery
+        fullscreenGallery.style.opacity = 1;
       }, 100);
     }
 
     function closeFullscreenGallery() {
-      fullscreenGallery.style.opacity = 0; // Fade out the gallery
+      fullscreenGallery.style.opacity = 0;
 
       setTimeout(() => {
         fullscreenGallery.classList.remove("active");
-      }, 500); // Match with transition duration
+      }, 500);
     }
 
     function showPrevImage() {
@@ -105,27 +103,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateFullscreenImage() {
-      fullscreenImage.style.transform = "translateX(-100%)"; // Start off-screen to the left
+      fullscreenImage.style.transform = "translateX(-100%)";
 
       setTimeout(() => {
-        // Allow the initial transition to finish before updating src
+  
         fullscreenImage.src = images[currentImageIndex];
-        fullscreenImage.style.transform = "translateX(0)"; // Move back into view with transition
+        fullscreenImage.style.transform = "translateX(0)"; 
       }, 100);
     }
 
     if (closeGallery) {
-      // Check if closeGallery exists before adding listener
       closeGallery.addEventListener("click", closeFullscreenGallery);
     }
 
     if (prevImage) {
-      // Check if prevImage exists before adding listener
       prevImage.addEventListener("click", showPrevImage);
     }
 
     if (nextImage) {
-      // Check if nextImage exists before adding listener
       nextImage.addEventListener("click", showNextImage);
     }
   }

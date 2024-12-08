@@ -24,8 +24,8 @@ let filteredAttractions = [];
 
 async function fetchAttractions() {
   try {
-    const response = await fetch(url, { method: "GET" }); // <-- Add this line
-    const data = await response.json(); // <-- Now data is defined
+    const response = await fetch(url, { method: "GET" }); 
+    const data = await response.json();
     attractions = data;
     filteredAttractions = data;
 
