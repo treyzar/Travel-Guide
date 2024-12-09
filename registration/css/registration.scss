@@ -162,6 +162,11 @@ input {
   margin-top: 20px;
   font-weight: 300;
   color: black;
+  transition: background-color 0.5s ease;
+}
+input:hover {
+  background: none;
+  border: 2px solid #ffffff2f;
 }
 button {
   margin-top: 15px;
