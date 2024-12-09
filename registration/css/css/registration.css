@@ -102,38 +102,13 @@ body {
     text-align: center;
   }
 }
-.background {
-  width: 430px;
-  height: 520px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
-}
-
-.background .shape {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
-}
-
-.shape:first-child {
-  background: linear-gradient(#1845ad, #23a2f6);
-  left: -80px;
-  top: -80px;
-}
-
-.shape:last-child {
-  background: linear-gradient(to right, #ff512f, #f09819);
-  right: -30px;
-  bottom: -80px;
-}
-
 form {
-  height: 520px;
+  height: 440px;
   width: 400px;
-  background-color: rgba(255, 255, 255, 0.13);
+  background: linear-gradient(90deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  transform: translate3d(0, 0, 0);
   position: absolute;
   transform: translate(-50%, -50%);
   top: 55%;
@@ -141,11 +116,21 @@ form {
   border-radius: 10px;
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.73);
   padding: 50px 35px;
 }
 
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 form * {
   color: #ffffff;
   letter-spacing: 0.5px;
@@ -160,49 +145,37 @@ form h3 {
   text-align: center;
 }
 
-label {
-  display: block;
-  margin-top: 30px;
-  font-size: 16px;
-  font-weight: 500;
-}
-
 input {
   display: block;
-  height: 50px;
+  height: 65px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.336);
   border-radius: 3px;
   padding: 0 10px;
   margin-top: 8px;
   font-size: 14px;
+  margin-top: 20px;
   font-weight: 300;
   color: black;
+  transition: background-color 0.5s ease;
 }
 
-::-moz-placeholder {
-  color: #2e2828;
-}
-
-::placeholder {
-  color: #2e2828;
+input:hover {
+  background: none;
+  border: 2px solid rgba(255, 255, 255, 0.1843137255);
 }
 
 button {
-  margin-top: 25px;
+  margin-top: 15px;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.203);
-  color: #080710;
+  color: #ffffff;
   padding: 15px 0;
   font-size: 18px;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
   transition: backround-color 0.5s linear;
-}
-
-button:hover {
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .haveacc {
@@ -224,7 +197,7 @@ button:hover {
 .register {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
+  margin-top: 15px;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.203);
   color: #080710;

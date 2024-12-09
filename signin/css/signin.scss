@@ -109,18 +109,31 @@ body {
 }
 
 form {
-  height: 425   px;
+  height: 425 px;
   width: 400px;
-  background-color: rgba(255, 255, 255, 0.13);
+  background: linear-gradient(90deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  transform: translate3d(0, 0, 0);
   position: absolute;
   transform: translate(-50%, -50%);
   top: 55%;
   left: 50%;
   border-radius: 10px;
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  //   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6  );
+  border: 2px solid rgba(255, 255, 255, 0.681);
   padding: 50px 35px;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 form * {
   color: #ffffff;
@@ -184,7 +197,7 @@ button {
   margin-top: 25px;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.203);
-  color: #080710;
+  color: #ffffff;
   transition: background-color 1s ease;
   transition: color 1s ease;
   padding: 15px 0;
@@ -192,10 +205,6 @@ button {
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
-}
-.entrance:hover {
-  background-color: #969696;
-  color: #ffffff;
 }
 
 @media (max-width: 401px) {
