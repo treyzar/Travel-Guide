@@ -127,22 +127,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Загрузка отзывов
   function loadReviews() {
     fetch(`https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        attraction.reviews = data.reviews || []; // Убедитесь, что reviews всегда массив
+        attraction.reviews = data.reviews || [];
         displayReviews();
       })
       .catch((error) => console.error("Ошибка при загрузке отзывов:", error));
   }
 
-  // Отображение отзывов
   function displayReviews() {
     reviewsContainer.innerHTML = "";
     if (Array.isArray(attraction.reviews)) {
-      // Проверка, что reviews является массивом
       attraction.reviews.forEach((review, index) => {
         const reviewElement = document.createElement("div");
         reviewElement.className = "review";
@@ -154,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
         reviewsContainer.appendChild(reviewElement);
       });
 
-      // Добавление обработчиков для удаления отзывов
       const deleteReviewButtons = document.querySelectorAll(".delete-review");
       deleteReviewButtons.forEach((button) => {
         button.addEventListener("click", deleteReview);
@@ -162,14 +158,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Удаление отзыва
   function deleteReview(event) {
     const index = event.target.getAttribute("data-index");
     attraction.reviews.splice(index, 1);
     updateReviewsOnServer();
   }
 
-  // Обновление отзывов на сервере
   function updateReviewsOnServer() {
     fetch(`https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd/${id}`, {
       method: "PUT",
@@ -185,7 +179,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => console.error("Ошибка при обновлении отзывов:", error));
   }
 
-  // Обработка отправки формы
   reviewForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const name = reviewNameInput.value.trim();
@@ -198,7 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const newReview = { name, text };
     if (!Array.isArray(attraction.reviews)) {
-      // Проверка, что reviews является массивом
       attraction.reviews = [];
     }
     attraction.reviews.push(newReview);
@@ -208,6 +200,5 @@ document.addEventListener("DOMContentLoaded", () => {
     reviewTextInput.value = "";
   });
 
-  // Загрузка отзывов при загрузке страницы
   loadReviews();
 });
