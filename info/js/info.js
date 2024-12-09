@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let galleryHTML = "";
   if (attraction.images && attraction.images.length > 0) {
     galleryHTML = '<div class="gallery">';
-    attraction.images.forEach((image) => {
+    const imagesToShow = attraction.images.slice(0, 2); // Показываем только первые две картинки
+    imagesToShow.forEach((image) => {
       galleryHTML += `<img src="${image}" alt="${attraction.name}" class="gallery-image">`;
     });
     galleryHTML += "</div>";
@@ -137,6 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => console.error("Ошибка при загрузке отзывов:", error));
   }
 
+  // Отображение отзывов
   function displayReviews() {
     reviewsContainer.innerHTML = "";
     if (Array.isArray(attraction.reviews)) {
@@ -145,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
         reviewElement.className = "review";
         reviewElement.innerHTML = `
           <div class="review-name">${review.name}</div>
-          <hr>
           <div class="review-text">${review.text}</div>
           <span class="delete-review" data-index="${index}">Удалить</span>
         `;
