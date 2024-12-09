@@ -150,7 +150,6 @@ a {
   color: #fff;
   text-decoration: none;
   transition: background-color 0.3s;
-  margin-bottom: 30px;
 }
 .card .back-button:hover {
   background-color: #5a5a5a;
@@ -327,6 +326,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 #reviews-container .review {
@@ -350,7 +350,11 @@ a {
 }
 
 #review-form {
-  margin-top: 20px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #review-form input,
@@ -374,6 +378,7 @@ a {
   text-align: center;
   align-items: center;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 #review-form button:hover {
