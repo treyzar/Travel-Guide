@@ -102,36 +102,8 @@ body {
     text-align: center;
   }
 }
-.background {
-  width: 430px;
-  height: 520px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
-}
-
-.background .shape {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
-}
-
-.shape:first-child {
-  background: linear-gradient(#1845ad, #23a2f6);
-  left: -80px;
-  top: -80px;
-}
-
-.shape:last-child {
-  background: linear-gradient(to right, #ff512f, #f09819);
-  right: -30px;
-  bottom: -80px;
-}
-
 form {
-  height: 490px;
+  height: 425 px;
   width: 400px;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
@@ -142,7 +114,6 @@ form {
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
 }
 
@@ -169,23 +140,15 @@ label {
 
 input {
   display: block;
-  height: 50px;
+  height: 65px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.473);
   border-radius: 3px;
   padding: 0 10px;
-  margin-top: 8px;
   font-size: 14px;
+  margin-top: 20px;
   font-weight: 300;
   color: #000000;
-}
-
-::-moz-placeholder {
-  color: #3d3434;
-}
-
-::placeholder {
-  color: #3d3434;
 }
 
 button {
@@ -209,11 +172,11 @@ button {
 .here {
   color: #a8a8a8;
   transition: color 0.2s ease-in;
-  padding-left: 5px;
+  padding-left: 10px;
 }
 
 .here:hover {
-  color: #000000;
+  color: #919191;
 }
 
 .entrance {
@@ -233,36 +196,8 @@ button {
 }
 
 .entrance:hover {
-  background-color: #000000;
+  background-color: #969696;
   color: #ffffff;
-}
-
-.background {
-  width: 430px;
-  height: 520px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
-}
-
-.background .shape {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
-}
-
-.shape:first-child {
-  background: linear-gradient(#1845ad, #23a2f6);
-  left: -80px;
-  top: -80px;
-}
-
-.shape:last-child {
-  background: linear-gradient(to right, #ff512f, #f09819);
-  right: -30px;
-  bottom: -80px;
 }
 
 @media (max-width: 401px) {
@@ -276,5 +211,5 @@ button {
   }
 }
 .logout {
-  display: block;
+  display: none;
 }
