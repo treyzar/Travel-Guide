@@ -147,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
         reviewElement.className = "review";
         reviewElement.innerHTML = `
           <div class="review-name">${review.name}</div>
+          <hr>
           <div class="review-text">${review.text}</div>
           <span class="delete-review" data-index="${index}">Удалить</span>
         `;
