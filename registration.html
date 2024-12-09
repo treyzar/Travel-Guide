@@ -1,46 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="https://img.freepik.com/free-vector/deer-colorful-gradient-style-vector-design_343694-1474.jpg?size=626&ext=jpg">
-    <link rel="stylesheet" href="./registration/css/registration.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://img.freepik.com/free-vector/deer-colorful-gradient-style-vector-design_343694-1474.jpg?size=626&ext=jpg"
+    />
+    <link rel="stylesheet" href="./registration/css/css/registration.css" />
     <title>Регистрация</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="navbar-brand"><a href="" class="navbar__logo"><img src="./main/img/logo2.png" alt="" class="navbar__logo-img"></a></div>
-        <div class="navbar-toggle" id="navbarToggle">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <ul class="navbar-menu" id="navbarMenu">
-            <li><a href="./main.html" class="navbar-menu-text">Главная</a></li>
-            <li><a href="./attractions.html" class="navbar-menu-text">Достопримечательности</a></li>
-            <li><a href="./contacts.html" class="navbar-menu-text">Контакты</a></li>
-            <li><a href="./signin.html" class="navbar-menu-text" id="sign">Войти</a></li>
-        </ul>
+      <div class="navbar-brand">
+        <a href="" class="navbar__logo"
+          ><img src="./main/img/logo2.png" alt="" class="navbar__logo-img"
+        /></a>
+      </div>
+      <div class="navbar-toggle" id="navbarToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="./main.html" class="navbar-menu-text">Главная</a></li>
+        <li>
+          <a href="./attractions.html" class="navbar-menu-text"
+            >Достопримечательности</a
+          >
+        </li>
+        <li><a href="./contacts.html" class="navbar-menu-text">Контакты</a></li>
+        <li>
+          <a href="./signin.html" class="navbar-menu-text" id="sign">Войти</a>
+        </li>
+      </ul>
     </nav>
-    
+
     <script src="./main/js/navbar.js"></script>
-    <div class="bacrkground">
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
     <form id="registrationForm">
-        <h3 class="FormLabel">Регистрация</h3>
-        <label for="username">Имя пользователя:</label>
-        <input type="text" id="username" name="username" required minlength="3" maxlength="20" placeholder="Введите имя пользователя...">
-        <br>
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required minlength="6" placeholder="Введите пароль...">
-        <br>
-        <button type="submit" class="submit">Зарегистрироваться</button>
-        <p class="haveacc">Есть аккаунт? Войдите<a href="./signin.html" class="here"> здесь</a></p>
+      <h3 class="FormLabel">Регистрация</h3>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        required
+        minlength="3"
+        maxlength="20"
+        placeholder="Введите имя пользователя..."
+      />
+      <br />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+        minlength="6"
+        placeholder="Введите пароль..."
+      />
+      <br />
+      <button type="submit" class="submit">Зарегистрироваться</button>
+      <p class="haveacc">
+        Войдите<a href="./signin.html" class="here"> здесь!</a>
+      </p>
     </form>
-    <script src = './registration/js/registration.js'></script>
-</body>
+    <script src="./registration/js/registration.js"></script>
+  </body>
 </html>
