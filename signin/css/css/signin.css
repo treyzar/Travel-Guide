@@ -163,6 +163,12 @@ input {
   margin-top: 20px;
   font-weight: 300;
   color: #000000;
+  transition: background 0.5s ease;
+}
+
+input:hover {
+  background: none;
+  border: 2px solid rgba(255, 255, 255, 0.1843137255);
 }
 
 button {
