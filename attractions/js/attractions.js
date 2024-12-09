@@ -20,8 +20,8 @@ const loader = document.getElementById("preloader_malc");
 
 let currentPage = 1;
 const itemsPerPage = 10;
-let attractions = [];
-let filteredAttractions = [];
+let totalAttractions = []; // Все достопримечательности
+let filteredAttractions = []; // Отфильтрованные достопримечательности
 
 async function fetchAttractions(page, searchTerm, category) {
   try {
@@ -35,14 +35,16 @@ async function fetchAttractions(page, searchTerm, category) {
 
     const response = await fetch(urlWithParams, { method: "GET" });
     const data = await response.json();
-    attractions = data;
+
+    // Обновляем только текущую страницу данных
+    totalAttractions = data;
     filteredAttractions = data;
 
-    attractions.forEach((attraction) => {
+    totalAttractions.forEach((attraction) => {
       sessionStorage.setItem(attraction.id, JSON.stringify(attraction));
     });
 
-    display();
+    displayAttractions(filteredAttractions); // Отображаем карточки
     addPagination();
   } catch (error) {
     console.error("Ошибка при получении данных:", error);
@@ -90,13 +92,6 @@ function filterAttractions() {
 
   currentPage = 1;
   fetchAttractions(currentPage, searchTerm, selectedCategory);
-}
-
-function display() {
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const pageAttractions = filteredAttractions.slice(startIndex, endIndex);
-  displayAttractions(pageAttractions);
 }
 
 searchInput.addEventListener("input", filterAttractions);

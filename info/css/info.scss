@@ -357,3 +357,62 @@ a {
   height: 500px;
   width: 495px;
 }
+
+/* Добавьте стили для формы и контейнера отзывов */
+#reviews-container {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#reviews-container .review {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#reviews-container .review .review-name {
+  width: 300px;
+  font-weight: bold;
+}
+
+#reviews-container .review .review-text {
+  margin-top: 5px;
+}
+
+#reviews-container .review .delete-review {
+  float: right;
+  cursor: pointer;
+}
+
+#review-form {
+  margin-top: 20px;
+}
+
+#review-form input,
+#review-form textarea {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+#review-form button {
+  padding: 10px 20px;
+  background-color: #777777;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#review-form button:hover {
+  background-color: #5c5c5c;
+}
