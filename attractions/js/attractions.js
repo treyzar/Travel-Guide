@@ -43,14 +43,12 @@ async function fetchAttractions(page, searchTerm, category, sortBy, order) {
     const response = await fetch(urlWithParams, { method: "GET" });
     const data = await response.json();
 
-    // Обновляем данные для текущей страницы
     filteredAttractions = data;
 
-    // Обновляем общее количество элементов (используем заголовок X-Total-Count)
     if (response.headers.has("X-Total-Count")) {
       totalItems = parseInt(response.headers.get("X-Total-Count"), 10);
     } else {
-      totalItems = itemsPerPage * 10; // Предположим, что максимум 10 страниц
+      totalItems = itemsPerPage * 5;
     }
 
     displayAttractions(filteredAttractions);
