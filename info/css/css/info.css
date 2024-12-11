@@ -409,3 +409,22 @@ a {
 #review-form button:hover {
   background-color: #5c5c5c;
 }
+
+.liked {
+  color: #848484;
+  background: 0;
+  border: none;
+}
+
+.liked:hover {
+  color: #000000;
+  cursor: pointer;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 25px;
+}

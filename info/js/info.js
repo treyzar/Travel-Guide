@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let galleryHTML = "";
   if (attraction.images && attraction.images.length > 0) {
     galleryHTML = '<div class="gallery">';
-    const imagesToShow = attraction.images.slice(0, 2); // Показываем только первые две картинки
+    const imagesToShow = attraction.images.slice(0, 2);
     imagesToShow.forEach((image) => {
       galleryHTML += `<img src="${image}" alt="${attraction.name}" class="gallery-image">`;
     });
     galleryHTML += "</div>";
   } else {
-    galleryHTML = `<img src="${attraction.image}" alt="${attraction.name}" class="card-image">`; // If no array, use single image
+    galleryHTML = `<img src="${attraction.image}" alt="${attraction.name}" class="card-image">`;
   }
 
   cardInfo.innerHTML = ` 
@@ -41,6 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
                   ${galleryHTML} <iframe src="${attraction.map}" frameborder="0" class="map"></iframe>
               </div>
               <p>${attraction.description2}</p>
+              <div class = "likes">
+              <button class="liked" id = "liked">&#10084</button> <p>${attraction.likes}</p> 
+              </div>
               <a href="./attractions.html" class="back-button">Вернуться назад</a>
           </div>
       </div>
@@ -52,9 +55,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeGallery = document.getElementById("close-gallery");
   const prevImage = document.getElementById("prev-image");
   const nextImage = document.getElementById("next-image");
-
+  const likesButton = document.getElementById("liked");
   let currentImageIndex = 0;
   let images = [];
+
+  likesButton.addEventListener("click", function updateCountLIkes() {
+    fetch(`https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(attraction.likes),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        attraction.likes += 1;
+      })
+      .catch((error) => console.error("Ошибка при обновлении отзывов:", error));
+  });
 
   if (galleryContainer) {
     galleryContainer.addEventListener("click", (event) => {
@@ -138,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => console.error("Ошибка при загрузке отзывов:", error));
   }
 
-  // Отображение отзывов
   function displayReviews() {
     reviewsContainer.innerHTML = "";
     if (Array.isArray(attraction.reviews)) {
