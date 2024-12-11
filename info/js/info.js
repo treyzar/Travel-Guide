@@ -1,95 +1,116 @@
 document.addEventListener("DOMContentLoaded", () => {
   const isSignedIn = sessionStorage.getItem("sign");
-
   if (isSignedIn === "true") {
     console.log("Пользователь авторизован");
-    document.getElementById("sign").style.display = "none";
-    document.getElementById("reg").style.display = "none";
+    const signElement = document.getElementById("sign");
+    const regElement = document.getElementById("reg");
+    if (signElement) signElement.style.display = "none";
+    if (regElement) regElement.style.display = "none";
   }
 
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
-  const attraction = JSON.parse(sessionStorage.getItem(id));
   const cardInfo = document.getElementById("cardInfo");
   const reviewsContainer = document.getElementById("reviews-container");
   const reviewForm = document.getElementById("review-form");
   const reviewNameInput = document.getElementById("review-name");
   const reviewTextInput = document.getElementById("review-text");
 
-  if (!attraction) {
-    cardInfo.innerHTML = "<p>Attraction not found.</p>";
-    return;
+  let attraction;
+
+  // Function to fetch attraction by ID
+  async function fetchAttractionById(attractionId) {
+    try {
+      const response = await fetch(
+        `https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd/${attractionId}`
+      );
+      attraction = await response.json();
+      displayAttraction(attraction);
+      displayReviews();
+    } catch (error) {
+      console.error("Ошибка при получении данных аттракции:", error);
+      cardInfo.innerHTML = "<p>Attraction not found.</p>";
+    }
   }
 
-  let galleryHTML = "";
-  if (attraction.images && attraction.images.length > 0) {
-    galleryHTML = '<div class="gallery">';
-    const imagesToShow = attraction.images.slice(0, 2);
-    imagesToShow.forEach((image) => {
-      galleryHTML += `<img src="${image}" alt="${attraction.name}" class="gallery-image">`;
-    });
-    galleryHTML += "</div>";
-  } else {
-    galleryHTML = `<img src="${attraction.image}" alt="${attraction.name}" class="card-image">`; // If no array, use single image
-  }
+  // Function to display attraction details
+  function displayAttraction(attractionData) {
+    let galleryHTML = "";
+    if (attractionData.images && attractionData.images.length > 0) {
+      galleryHTML = '<div class="gallery">';
+      const imagesToShow = attractionData.images.slice(0, 2);
+      imagesToShow.forEach((image) => {
+        galleryHTML += `<img src="${image}" alt="${attractionData.name}" class="gallery-image">`;
+      });
+      galleryHTML += "</div>";
+    } else {
+      galleryHTML = `<img src="${attractionData.image}" alt="${attractionData.name}" class="card-image">`; // If no array, use single image
+    }
 
-  cardInfo.innerHTML = ` 
+    cardInfo.innerHTML = `
       <div class="container">
-          <div class="card">
-          <h2>${attraction.name}</h2>
-              <div class="image-map-container" id="image-gallery-container">
-                  ${galleryHTML} <iframe src="${attraction.map}" frameborder="0" class="map"></iframe>
-              </div>
-              <p>${attraction.description2}</p>
-              <a href="./attractions.html" class="back-button">Вернуться назад</a>
+        <div class="card">
+          <h2>${attractionData.name}</h2>
+          <div class="image-map-container" id="image-gallery-container">
+            ${galleryHTML}
+            <iframe src="${attractionData.map}" frameborder="0" class="map"></iframe>
           </div>
+          <p>${attractionData.description2}</p>
+          <a href="./attractions.html" class="back-button">Вернуться назад</a>
+        </div>
       </div>
-  `;
+    `;
 
-  const galleryContainer = document.getElementById("image-gallery-container");
-  const fullscreenGallery = document.getElementById("fullscreen-gallery");
-  const fullscreenImage = document.getElementById("fullscreen-image");
-  const closeGallery = document.getElementById("close-gallery");
-  const prevImage = document.getElementById("prev-image");
-  const nextImage = document.getElementById("next-image");
+    // Gallery functionality
+    const galleryContainer = document.getElementById("image-gallery-container");
+    const fullscreenGallery = document.getElementById("fullscreen-gallery");
+    const fullscreenImage = document.getElementById("fullscreen-image");
+    const closeGallery = document.getElementById("close-gallery");
+    const prevImage = document.getElementById("prev-image");
+    const nextImage = document.getElementById("next-image");
 
-  let currentImageIndex = 0;
-  let images = [];
+    let currentImageIndex = 0;
+    let images = [];
 
-  if (galleryContainer) {
-    galleryContainer.addEventListener("click", (event) => {
-      if (attraction.images && attraction.images.length > 0) {
-        const clickedImage = event.target.closest(".gallery-image");
-        if (clickedImage) {
-          images = attraction.images;
-          currentImageIndex = Array.from(
-            galleryContainer.querySelectorAll(".gallery-image")
-          ).indexOf(clickedImage);
+    if (galleryContainer) {
+      galleryContainer.addEventListener("click", (event) => {
+        if (attractionData.images && attractionData.images.length > 0) {
+          const clickedImage = event.target.closest(".gallery-image");
+          if (clickedImage) {
+            images = attractionData.images;
+            currentImageIndex = Array.from(
+              galleryContainer.querySelectorAll(".gallery-image")
+            ).indexOf(clickedImage);
 
+            openFullscreenGallery();
+          }
+        } else {
+          images = [attractionData.image];
+          currentImageIndex = 0;
           openFullscreenGallery();
         }
-      } else {
-        images = [attraction.image];
-        currentImageIndex = 0;
-        openFullscreenGallery();
-      }
-    });
+      });
+    }
 
     function openFullscreenGallery() {
-      fullscreenImage.src = images[currentImageIndex];
-      fullscreenGallery.classList.add("active");
-
-      setTimeout(() => {
-        fullscreenGallery.style.opacity = 1;
-      }, 100);
+      if (fullscreenImage) {
+        fullscreenImage.src = images[currentImageIndex];
+        if (fullscreenGallery) {
+          fullscreenGallery.classList.add("active");
+          setTimeout(() => {
+            fullscreenGallery.style.opacity = 1;
+          }, 100);
+        }
+      }
     }
 
     function closeFullscreenGallery() {
-      fullscreenGallery.style.opacity = 0;
-
-      setTimeout(() => {
-        fullscreenGallery.classList.remove("active");
-      }, 500);
+      if (fullscreenGallery) {
+        fullscreenGallery.style.opacity = 0;
+        setTimeout(() => {
+          fullscreenGallery.classList.remove("active");
+        }, 500);
+      }
     }
 
     function showPrevImage() {
@@ -107,12 +128,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateFullscreenImage() {
-      fullscreenImage.style.transform = "translateX(-100%)";
-
-      setTimeout(() => {
-        fullscreenImage.src = images[currentImageIndex];
-        fullscreenImage.style.transform = "translateX(0)";
-      }, 100);
+      if (fullscreenImage) {
+        fullscreenImage.style.transform = "translateX(-100%)";
+        setTimeout(() => {
+          if (fullscreenImage) {
+            fullscreenImage.src = images[currentImageIndex];
+            fullscreenImage.style.transform = "translateX(0)";
+          }
+        }, 100);
+      }
     }
 
     if (closeGallery) {
@@ -128,16 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function loadReviews() {
-    fetch(`https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        attraction.reviews = data.reviews || [];
-        displayReviews();
-      })
-      .catch((error) => console.error("Ошибка при загрузке отзывов:", error));
-  }
-
+  // Function to display reviews
   function displayReviews() {
     reviewsContainer.innerHTML = "";
     if (Array.isArray(attraction.reviews)) {
@@ -160,47 +175,60 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Function to delete a review
   function deleteReview(event) {
     const index = event.target.getAttribute("data-index");
     attraction.reviews.splice(index, 1);
     updateReviewsOnServer();
   }
 
-  function updateReviewsOnServer() {
-    fetch(`https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(attraction),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        displayReviews();
-      })
-      .catch((error) => console.error("Ошибка при обновлении отзывов:", error));
+  // Function to update reviews on the server
+  async function updateReviewsOnServer() {
+    try {
+      await fetch(
+        `https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(attraction),
+        }
+      );
+      displayReviews();
+    } catch (error) {
+      console.error("Ошибка при обновлении отзывов:", error);
+    }
   }
 
-  reviewForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const name = reviewNameInput.value.trim();
-    const text = reviewTextInput.value.trim();
+  // Event listener for submitting a new review
+  if (reviewForm) {
+    reviewForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = reviewNameInput.value.trim();
+      const text = reviewTextInput.value.trim();
 
-    if (name === "" || text === "") {
-      alert("Пожалуйста, заполните все поля.");
-      return;
-    }
+      if (name === "" || text === "") {
+        alert("Пожалуйста, заполните все поля.");
+        return;
+      }
 
-    const newReview = { name, text };
-    if (!Array.isArray(attraction.reviews)) {
-      attraction.reviews = [];
-    }
-    attraction.reviews.push(newReview);
-    updateReviewsOnServer();
+      const newReview = { name, text };
+      if (!Array.isArray(attraction.reviews)) {
+        attraction.reviews = [];
+      }
+      attraction.reviews.push(newReview);
+      updateReviewsOnServer();
 
-    reviewNameInput.value = "";
-    reviewTextInput.value = "";
-  });
+      reviewNameInput.value = "";
+      reviewTextInput.value = "";
+    });
+  }
 
-  loadReviews();
+  // Fetch the attraction data by ID
+  if (id) {
+    fetchAttractionById(id);
+  } else {
+    cardInfo.innerHTML = "<p>Attraction ID not provided.</p>";
+  }
 });
