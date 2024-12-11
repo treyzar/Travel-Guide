@@ -119,7 +119,8 @@ h1 {
   margin-bottom: 20px;
 }
 
-#searchInput, #categoryFilter {
+#searchInput,
+#categoryFilter {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 7px;
@@ -164,6 +165,7 @@ h1 {
 
 #pagination {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #pagination button {
@@ -198,7 +200,8 @@ h1 {
     flex-direction: column;
     align-items: center;
   }
-  #searchInput, #categoryFilter {
+  #searchInput,
+  #categoryFilter {
     width: 100%;
     margin-bottom: 10px;
   }
