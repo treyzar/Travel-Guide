@@ -1,70 +1,90 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const isSignedIn = sessionStorage.getItem('sign');
-  
-    if (isSignedIn === 'true') {
-        console.log('Пользователь авторизован');
-        document.getElementById('sign').style.display = 'none';
-        document.getElementById('reg').style.display = 'none';}})
+class AppManager {
+    constructor() {
+        this.modal = document.getElementById('modal');
+        this.openModalButton = document.getElementById('openModal');
+        this.closeModalButton = document.getElementsByClassName('close')[0];
+        this.contactForm = document.getElementById('contactForm');
+        this.signElement = document.getElementById('sign');
+        this.regElement = document.getElementById('reg');
 
-document.getElementById('openModal').addEventListener('click', function() {
-    document.getElementById('modal').style.display = 'block';
-});
-
-document.getElementsByClassName('close')[0].addEventListener('click', function() {
-    document.getElementById('modal').style.display = 'none';
-});
-
-window.addEventListener('click', function(event) {
-    if (event.target == document.getElementById('modal')) {
-        document.getElementById('modal').style.display = 'none';
-    }
-});
-
-window.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        document.getElementById('modal').style.display = 'none';
-    }
-});
-
-function submitForm() {
-    const form = document.getElementById('contactForm');
-    const nameInput = form.elements.name;
-    const emailInput = form.elements.email;
-    const phoneInput = form.elements.phone;
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(emailInput.value)) {
-        alert('введите емейл адрес который включает в себя символ @ с окончанием .com/.ru');
-        return;
+        this.init();
     }
 
-    const phonePattern = /^\+?\d{10,14}$/;
-    if (!phonePattern.test(phoneInput.value)) {
-        alert('введите номер для валидации без лишних знаков от 10 до 14 цифр');
-        return;
+    init() {
+        this.checkAuthorization();
+
+        this.openModalButton.addEventListener('click', this.openModal.bind(this));
+        this.closeModalButton.addEventListener('click', this.closeModal.bind(this));
+        window.addEventListener('click', this.handleOutsideClick.bind(this));
+        window.addEventListener('keydown', this.handleEscapeKey.bind(this));
+
+        this.contactForm.addEventListener('submit', this.submitForm.bind(this));
     }
 
+    checkAuthorization() {
+        const isSignedIn = sessionStorage.getItem('sign');
+        if (isSignedIn === 'true') {
+            console.log('Пользователь авторизован');
+            this.signElement.style.display = 'none';
+            this.regElement.style.display = 'none';
+        }
+    }
 
-    const formData = {
-        name: nameInput.value,
-        email: emailInput.value,
-        phone: phoneInput.value
-    };
+    openModal() {
+        this.modal.style.display = 'block';
+    }
 
-    localStorage.setItem('contactFormData', JSON.stringify(formData));
+    closeModal() {
+        this.modal.style.display = 'none';
+    }
 
-    form.reset();
+    handleOutsideClick(event) {
+        if (event.target === this.modal) {
+            this.closeModal();
+        }
+    }
 
+    handleEscapeKey(event) {
+        if (event.key === 'Escape') {
+            this.closeModal();
+        }
+    }
 
-    const modal = document.getElementById('modal');
-    modal.style.display = 'none';
+    submitForm(event) {
+        event.preventDefault();
 
+        const nameInput = this.contactForm.elements.name;
+        const emailInput = this.contactForm.elements.email;
+        const phoneInput = this.contactForm.elements.phone;
 
-    alert('форма успешно отправлена');
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value)) {
+            alert('Введите email адрес, который включает символ @ с окончанием .com/.ru');
+            return;
+        }
+
+        const phonePattern = /^\+?\d{10,14}$/;
+        if (!phonePattern.test(phoneInput.value)) {
+            alert('Введите номер телефона для валидации без лишних знаков (от 10 до 14 цифр)');
+            return;
+        }
+
+        const formData = {
+            name: nameInput.value,
+            email: emailInput.value,
+            phone: phoneInput.value
+        };
+
+        localStorage.setItem('contactFormData', JSON.stringify(formData));
+
+        this.contactForm.reset();
+
+        this.closeModal();
+
+        alert('Форма успешно отправлена');
+    }
 }
 
-
-document.querySelector('.close').addEventListener('click', function() {
-    const modal = document.getElementById('modal');
-    modal.style.display = 'none';
+document.addEventListener('DOMContentLoaded', () => {
+    new AppManager();
 });

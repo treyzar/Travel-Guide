@@ -1,190 +1,227 @@
-const url = "https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd";
+class AttractionsManager {
+  constructor(
+    url,
+    cardsContainerId,
+    searchInputId,
+    categoryFilterId,
+    sortSelectId,
+    regionFilterId,
+    ratingFilterId,
+    prevPageButtonId,
+    nextPageButtonId,
+    pageInfoId,
+    loaderId
+  ) {
+    this.url = url;
+    this.cardsContainer = document.getElementById(cardsContainerId);
+    this.searchInput = document.getElementById(searchInputId);
+    this.categoryFilter = document.getElementById(categoryFilterId);
+    this.sortSelect = document.getElementById(sortSelectId);
+    this.regionFilter = document.getElementById(regionFilterId);
+    this.ratingFilter = document.getElementById(ratingFilterId);
+    this.prevPageButton = document.getElementById(prevPageButtonId);
+    this.nextPageButton = document.getElementById(nextPageButtonId);
+    this.pageInfo = document.getElementById(pageInfoId);
+    this.loader = document.getElementById(loaderId);
 
-const cardsContainer = document.getElementById("cardsContainer");
-const searchInput = document.getElementById("searchInput");
-const categoryFilter = document.getElementById("categoryFilter");
-const sortSelect = document.getElementById("sortSelect");
-const regionFilter = document.getElementById("regionFilter"); // New filter
-const ratingFilter = document.getElementById("ratingFilter"); // New filter
-const prevPageButton = document.getElementById("prevPage");
-const nextPageButton = document.getElementById("nextPage");
-const pageInfo = document.getElementById("pageInfo");
-const loader = document.getElementById("preloader_malc");
+    this.currentPage = 1;
+    this.itemsPerPage = 10;
+    this.totalItems = 100;
+    this.currentPageAttractions = [];
 
-let currentPage = 1;
-const itemsPerPage = 10;
-let totalItems = 100; // Общее количество элементов (10 страниц × 10 карточек на странице)
-let currentPageAttractions = [];
+    this.currentSearchTerm = "";
+    this.currentCategory = "all";
+    this.currentRegion = "all";
+    this.currentRating = "all";
+    this.currentSortBy = "";
+    this.currentOrder = "";
 
-// Сохраняем текущие фильтры и поиск
-let currentSearchTerm = "";
-let currentCategory = "all";
-let currentRegion = "all";
-let currentRating = "all";
-let currentSortBy = "";
-let currentOrder = "";
+    this.init();
+  }
 
-// Fetch attractions with pagination, search, category, region, rating, and sorting
-async function fetchAttractions(
-  page,
-  searchTerm,
-  category,
-  region,
-  rating,
-  sortBy,
-  order
-) {
-  try {
-    loader.style.display = "flex";
-    const urlWithParams = new URL(url);
-    urlWithParams.searchParams.append("page", page);
-    urlWithParams.searchParams.append("limit", itemsPerPage);
+  init() {
+    this.searchInput.addEventListener(
+      "input",
+      this.filterAttractions.bind(this)
+    );
+    this.categoryFilter.addEventListener(
+      "change",
+      this.filterAttractions.bind(this)
+    );
+    this.regionFilter.addEventListener(
+      "change",
+      this.filterAttractions.bind(this)
+    );
+    this.ratingFilter.addEventListener(
+      "change",
+      this.filterAttractions.bind(this)
+    );
+    this.sortSelect.addEventListener(
+      "change",
+      this.filterAttractions.bind(this)
+    );
 
-    // Add search term
-    if (searchTerm) urlWithParams.searchParams.append("search", searchTerm);
+    this.prevPageButton.addEventListener("click", this.prevPage.bind(this));
+    this.nextPageButton.addEventListener("click", this.nextPage.bind(this));
 
-    // Add category filter
-    if (category && category !== "all")
-      urlWithParams.searchParams.append("category", category);
+    this.fetchAttractions(this.currentPage);
+  }
 
-    // Add region filter
-    if (region && region !== "all")
-      urlWithParams.searchParams.append("region", region);
+  async fetchAttractions(
+    page,
+    searchTerm,
+    category,
+    region,
+    rating,
+    sortBy,
+    order
+  ) {
+    try {
+      this.loader.style.display = "flex";
+      const urlWithParams = new URL(this.url);
+      urlWithParams.searchParams.append("page", page);
+      urlWithParams.searchParams.append("limit", this.itemsPerPage);
 
-    // Add rating filter
-    if (rating && rating !== "all")
-      urlWithParams.searchParams.append("rating", rating);
+      if (searchTerm) urlWithParams.searchParams.append("search", searchTerm);
+      if (category && category !== "all")
+        urlWithParams.searchParams.append("category", category);
+      if (region && region !== "all")
+        urlWithParams.searchParams.append("region", region);
+      if (rating && rating !== "all")
+        urlWithParams.searchParams.append("rating", rating);
+      if (sortBy) urlWithParams.searchParams.append("sortBy", sortBy);
+      if (order) urlWithParams.searchParams.append("order", order);
 
-    // Add sorting
-    if (sortBy) urlWithParams.searchParams.append("sortBy", sortBy);
-    if (order) urlWithParams.searchParams.append("order", order);
+      const response = await fetch(urlWithParams, { method: "GET" });
+      const data = await response.json();
 
-    const response = await fetch(urlWithParams, { method: "GET" });
-    const data = await response.json();
+      this.currentPageAttractions = data;
 
-    currentPageAttractions = data;
+      this.currentPageAttractions.forEach((attraction) => {
+        sessionStorage.setItem(attraction.id, JSON.stringify(attraction));
+      });
 
-    // Store each attraction in sessionStorage
-    currentPageAttractions.forEach((attraction) => {
-      sessionStorage.setItem(attraction.id, JSON.stringify(attraction));
-    });
+      if (response.headers.has("X-Total-Count")) {
+        this.totalItems = parseInt(response.headers.get("X-Total-Count"), 10);
+      } else {
+        this.totalItems = 100;
+      }
 
-    // Get total items count from headers
-    if (response.headers.has("X-Total-Count")) {
-      totalItems = parseInt(response.headers.get("X-Total-Count"), 10);
-    } else {
-      totalItems = 100; // Общее количество элементов (10 страниц × 10 карточек на странице)
+      this.displayAttractions(this.currentPageAttractions);
+      this.addPagination();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      this.loader.style.display = "none";
+    }
+  }
+
+  displayAttractions(data) {
+    this.cardsContainer.innerHTML = "";
+
+    if (data.length === 0) {
+      const noAttractionMessage = document.createElement("p");
+      noAttractionMessage.textContent = "Достопримечательность не найдена";
+      noAttractionMessage.style.fontSize = "1.5rem";
+      noAttractionMessage.style.textAlign = "center";
+      noAttractionMessage.style.marginTop = "20px";
+      this.cardsContainer.appendChild(noAttractionMessage);
+      return;
     }
 
-    displayAttractions(currentPageAttractions);
-    addPagination();
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  } finally {
-    loader.style.display = "none";
-  }
-}
+    data.forEach((attraction) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.id = "card";
 
-function displayAttractions(data) {
-  cardsContainer.innerHTML = ""; // Clear the container
+      card.innerHTML = `
+              <img src="${attraction.image}" alt="${attraction.name}" style="height: 200px; width: 320px; border-radius: 7px;">
+              <h2>${attraction.name}</h2>
+              <p>${attraction.description}</p>
+              <p><strong>Адрес:</strong> ${attraction.addres}</p>
+              <p><strong>Регион:</strong> ${attraction.region}</p>
+              <p><strong>Рейтинг:</strong> ${attraction.rating}</p>
+          `;
+      card.addEventListener("click", () => {
+        sessionStorage.setItem(attraction.id, JSON.stringify(attraction));
+        window.location.href = `./info.html?id=${attraction.id}`;
+      });
 
-  // Check if no attractions were found
-  if (data.length === 0) {
-    const noAttractionMessage = document.createElement("p");
-    noAttractionMessage.textContent = "Достопримечательность не найдена";
-    noAttractionMessage.style.fontSize = "1.5rem";
-    noAttractionMessage.style.textAlign = "center";
-    noAttractionMessage.style.marginTop = "20px";
-    cardsContainer.appendChild(noAttractionMessage);
-    return;
-  }
-
-  // If attractions are found, display them
-  data.forEach((attraction) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = "card";
-
-    card.innerHTML = `
-      <img src="${attraction.image}" alt="${attraction.name}" style="height: 200px; width: 320px; border-radius: 7px;">
-      <h2>${attraction.name}</h2>
-      <p>${attraction.description}</p>
-      <p><strong>Address:</strong> ${attraction.addres}</p>
-      <p><strong>Region:</strong> ${attraction.region}</p>
-      <p><strong>Rating:</strong> ${attraction.rating}</p>
-    `;
-    card.addEventListener("click", function redirectToPage() {
-      sessionStorage.setItem(attraction.id, JSON.stringify(attraction));
-      window.location.href = `./info.html?id=${attraction.id}`;
+      this.cardsContainer.appendChild(card);
     });
+  }
 
-    cardsContainer.appendChild(card);
-  });
-}
+  addPagination() {
+    const totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.pageInfo.textContent = `Страница ${this.currentPage} из ${totalPages}`;
 
-function addPagination() {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    this.prevPageButton.disabled = this.currentPage === 1;
+    this.nextPageButton.disabled = this.currentPage === totalPages;
+  }
 
-  prevPageButton.disabled = currentPage === 1;
-  nextPageButton.disabled = currentPage === totalPages;
-}
+  filterAttractions() {
+    this.currentSearchTerm = this.searchInput.value.toLowerCase();
+    this.currentCategory = this.categoryFilter.value;
+    this.currentRegion = this.regionFilter.value;
+    this.currentRating = this.ratingFilter.value;
+    this.currentSortBy = this.sortSelect.value.split("-")[0];
+    this.currentOrder = this.sortSelect.value.split("-")[1];
 
-function filterAttractions() {
-  currentSearchTerm = searchInput.value.toLowerCase();
-  currentCategory = categoryFilter.value;
-  currentRegion = regionFilter.value; // New filter
-  currentRating = ratingFilter.value; // New filter
-  currentSortBy = sortSelect.value.split("-")[0];
-  currentOrder = sortSelect.value.split("-")[1];
-
-  currentPage = 1;
-  fetchAttractions(
-    currentPage,
-    currentSearchTerm,
-    currentCategory,
-    currentRegion,
-    currentRating,
-    currentSortBy,
-    currentOrder
-  );
-}
-
-searchInput.addEventListener("input", filterAttractions);
-categoryFilter.addEventListener("change", filterAttractions);
-regionFilter.addEventListener("change", filterAttractions); // New filter
-ratingFilter.addEventListener("change", filterAttractions); // New filter
-sortSelect.addEventListener("change", filterAttractions);
-
-prevPageButton.addEventListener("click", () => {
-  if (currentPage > 1) {
-    currentPage--;
-    fetchAttractions(
-      currentPage,
-      currentSearchTerm,
-      currentCategory,
-      currentRegion,
-      currentRating,
-      currentSortBy,
-      currentOrder
+    this.currentPage = 1;
+    this.fetchAttractions(
+      this.currentPage,
+      this.currentSearchTerm,
+      this.currentCategory,
+      this.currentRegion,
+      this.currentRating,
+      this.currentSortBy,
+      this.currentOrder
     );
   }
-});
 
-nextPageButton.addEventListener("click", () => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  if (currentPage < totalPages) {
-    currentPage++;
-    fetchAttractions(
-      currentPage,
-      currentSearchTerm,
-      currentCategory,
-      currentRegion,
-      currentRating,
-      currentSortBy,
-      currentOrder
-    );
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.fetchAttractions(
+        this.currentPage,
+        this.currentSearchTerm,
+        this.currentCategory,
+        this.currentRegion,
+        this.currentRating,
+        this.currentSortBy,
+        this.currentOrder
+      );
+    }
   }
-});
 
-fetchAttractions(currentPage);
+  nextPage() {
+    const totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    if (this.currentPage < totalPages) {
+      this.currentPage++;
+      this.fetchAttractions(
+        this.currentPage,
+        this.currentSearchTerm,
+        this.currentCategory,
+        this.currentRegion,
+        this.currentRating,
+        this.currentSortBy,
+        this.currentOrder
+      );
+    }
+  }
+}
+
+// Использование класса
+const attractionsManager = new AttractionsManager(
+  "https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd",
+  "cardsContainer",
+  "searchInput",
+  "categoryFilter",
+  "sortSelect",
+  "regionFilter",
+  "ratingFilter",
+  "prevPage",
+  "nextPage",
+  "pageInfo",
+  "preloader_malc"
+);
