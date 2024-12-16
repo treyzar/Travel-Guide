@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
+  new AuthManager();
+  new RegistrationForm("registrationForm", "username", "password");
+});
 class AuthManager {
   constructor() {
     this.isSignedIn = sessionStorage.getItem("sign") === "true";
@@ -98,8 +102,3 @@ class RegistrationForm {
       });
   }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  new AuthManager();
-  new RegistrationForm("registrationForm", "username", "password");
-});

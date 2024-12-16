@@ -43,7 +43,7 @@ class AttractionPageManager {
     let galleryHTML = "";
     if (this.attraction.images && this.attraction.images.length > 0) {
       galleryHTML = '<div class="gallery">';
-      const imagesToShow = this.attraction.images.slice(0, 2);
+      const imagesToShow = this.attraction.images.slice(0, 2); 
       imagesToShow.forEach((image) => {
         galleryHTML += `<img src="${image}" alt="${this.attraction.name}" class="gallery-image">`;
       });
@@ -76,11 +76,8 @@ class AttractionPageManager {
           this.currentImageIndex = Array.from(
             this.galleryContainer.querySelectorAll(".gallery-image")
           ).indexOf(clickedImage);
-        } else {
-          this.images = [this.attraction.image];
-          this.currentImageIndex = 0;
+          this.openFullscreenGallery();
         }
-        this.openFullscreenGallery();
       });
 
       this.closeGallery.addEventListener(
@@ -122,11 +119,7 @@ class AttractionPageManager {
   }
 
   updateFullscreenImage() {
-    this.fullscreenImage.style.transform = "translateX(-100%)";
-    setTimeout(() => {
-      this.fullscreenImage.src = this.images[this.currentImageIndex];
-      this.fullscreenImage.style.transform = "translateX(0)";
-    }, 100);
+    this.fullscreenImage.src = this.images[this.currentImageIndex];
   }
 
   loadReviews() {

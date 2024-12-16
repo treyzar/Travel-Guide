@@ -120,11 +120,14 @@ h1 {
 }
 
 #searchInput,
-#categoryFilter {
+#categoryFilter,
+#sortSelect,
+#regionFilter {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 7px;
   background-color: rgba(208, 208, 208, 0.6235294118);
+  margin-right: 10px;
 }
 
 #searchInput {
@@ -187,6 +190,32 @@ h1 {
   font-size: 18px;
 }
 
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  background-color: rgba(208, 208, 208, 0.6235294118);
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+select option {
+  background-color: #fff;
+  color: #333;
+}
+
+select:hover {
+  background-color: rgba(224, 224, 224, 0.6235294118);
+}
+
 @media (max-width: 400px) {
   .container {
     width: 90%;
@@ -197,8 +226,10 @@ h1 {
     padding-bottom: 50px;
   }
   .filters {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
   }
   #searchInput,
   #categoryFilter {
@@ -228,6 +259,19 @@ h1 {
   }
   .nextPage {
     padding-top: 10px;
+  }
+  select {
+    padding: 8px;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 3px rgba(52, 152, 219, 0.5);
+  }
+  select:hover {
+    background-color: rgba(224, 224, 224, 0.6235294118);
   }
 }
 .footer {

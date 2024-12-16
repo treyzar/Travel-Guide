@@ -23,6 +23,7 @@ class AttractionsManager {
     this.nextPageButton = document.getElementById(nextPageButtonId);
     this.pageInfo = document.getElementById(pageInfoId);
     this.loader = document.getElementById(loaderId);
+    this.isSignedIn = sessionStorage.getItem("sign") === "true";
 
     this.currentPage = 1;
     this.itemsPerPage = 10;
@@ -40,6 +41,11 @@ class AttractionsManager {
   }
 
   init() {
+    if (this.isSignedIn) {
+      console.log("Пользователь авторизован");
+      document.getElementById("sign").style.display = "none";
+      document.getElementById("reg").style.display = "none";
+    }
     this.searchInput.addEventListener(
       "input",
       this.filterAttractions.bind(this)
@@ -211,7 +217,6 @@ class AttractionsManager {
   }
 }
 
-// Использование класса
 const attractionsManager = new AttractionsManager(
   "https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd",
   "cardsContainer",
