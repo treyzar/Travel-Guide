@@ -37,6 +37,8 @@ class AttractionsManager {
     this.currentSortBy = "";
     this.currentOrder = "";
 
+    this.searchTimer = null; // Таймер для задержки поиска
+
     this.init();
   }
 
@@ -46,10 +48,20 @@ class AttractionsManager {
       document.getElementById("sign").style.display = "none";
       document.getElementById("reg").style.display = "none";
     }
+
+    // Обработчик для поиска с задержкой
     this.searchInput.addEventListener(
       "input",
-      this.filterAttractions.bind(this)
+      this.handleSearchInput.bind(this)
     );
+
+    // Обработчик для поиска по нажатию Enter
+    this.searchInput.addEventListener(
+      "keydown",
+      this.handleSearchKeyDown.bind(this)
+    );
+
+    // Обработчики для фильтров и сортировки
     this.categoryFilter.addEventListener(
       "change",
       this.filterAttractions.bind(this)
@@ -73,6 +85,22 @@ class AttractionsManager {
     this.fetchAttractions(this.currentPage);
   }
 
+  handleSearchInput() {
+    clearTimeout(this.searchTimer); // Сбрасываем таймер
+
+    // Устанавливаем новый таймер
+    this.searchTimer = setTimeout(() => {
+      this.filterAttractions();
+    }, 500); // Задержка 500 мс
+  }
+
+  handleSearchKeyDown(event) {
+    if (event.key === "Enter") {
+      clearTimeout(this.searchTimer); // Сбрасываем таймер
+      this.filterAttractions(); // Отправляем запрос сразу
+    }
+  }
+
   async fetchAttractions(
     page,
     searchTerm,
@@ -88,6 +116,7 @@ class AttractionsManager {
       urlWithParams.searchParams.append("page", page);
       urlWithParams.searchParams.append("limit", this.itemsPerPage);
 
+      // Добавляем параметры поиска, фильтрации и сортировки
       if (searchTerm) urlWithParams.searchParams.append("search", searchTerm);
       if (category && category !== "all")
         urlWithParams.searchParams.append("category", category);
@@ -149,7 +178,7 @@ class AttractionsManager {
               <p><strong>Рейтинг:</strong> ${attraction.rating}</p>
           `;
       card.addEventListener("click", () => {
-        sessionStorage.setItem(attraction.id, JSON.stringify(attraction));
+        // Перенаправляем на страницу с ID достопримечательности
         window.location.href = `./info.html?id=${attraction.id}`;
       });
 

@@ -254,9 +254,6 @@ select:hover {
   #pagination button {
     margin: 3px 0;
   }
-  #pageInfo {
-    margin-top: 10px;
-  }
   .nextPage {
     padding-top: 10px;
   }

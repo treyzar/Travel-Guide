@@ -67,9 +67,9 @@ a {
   font-size: 18px;
 }
 
-@media (max-width: 401px) {
+@media (max-width: 425px) {
   .navbar {
-    width: 401px;
+    width: 425px;
   }
   .navbar-toggle {
     display: flex;
@@ -77,7 +77,7 @@ a {
   .navbar-menu {
     display: none;
     flex-direction: column;
-    width: 401px;
+    width: 425px;
     background-color: rgb(175, 175, 175);
     position: absolute;
     top: 90px;
@@ -182,7 +182,7 @@ a {
   padding-bottom: 10px;
 }
 
-@media (max-width: 401px) {
+@media (max-width: 425px) {
   .main {
     background: url("https://ic.pics.livejournal.com/zdorovs/16627846/1441890/1441890_original.jpg") no-repeat center center fixed;
     background-size: cover;
@@ -272,7 +272,7 @@ a {
   font-size: 20px;
 }
 
-@media (max-width: 401px) {
+@media (max-width: 425px) {
   .slider {
     padding-top: 30px;
     padding-right: 15px;
@@ -352,7 +352,7 @@ a {
   padding-bottom: 50px;
 }
 
-@media (max-width: 401px) {
+@media (max-width: 425px) {
   .cart {
     margin-bottom: 20px;
   }
@@ -418,7 +418,7 @@ a {
   transform: translateY(-10px);
 }
 
-@media (max-width: 401px) {
+@media (max-width: 425px) {
   .footer {
     height: auto;
     padding: 20px 0;

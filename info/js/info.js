@@ -9,7 +9,6 @@ class AttractionPageManager {
     this.reviewForm = document.getElementById("review-form");
     this.reviewNameInput = document.getElementById("review-name");
     this.reviewTextInput = document.getElementById("review-text");
-    this.galleryContainer = document.getElementById("image-gallery-container");
     this.fullscreenGallery = document.getElementById("fullscreen-gallery");
     this.fullscreenImage = document.getElementById("fullscreen-image");
     this.closeGallery = document.getElementById("close-gallery");
@@ -24,8 +23,8 @@ class AttractionPageManager {
   init() {
     if (this.isSignedIn) {
       console.log("Пользователь авторизован");
-      document.getElementById("sign").style.display = "none";
-      document.getElementById("reg").style.display = "none";
+      document.getElementById("sign").remove();
+      document.getElementById("reg").remove();
     }
 
     if (!this.attraction) {
@@ -43,8 +42,7 @@ class AttractionPageManager {
     let galleryHTML = "";
     if (this.attraction.images && this.attraction.images.length > 0) {
       galleryHTML = '<div class="gallery">';
-      const imagesToShow = this.attraction.images.slice(0, 2); 
-      imagesToShow.forEach((image) => {
+      this.attraction.images.forEach((image) => {
         galleryHTML += `<img src="${image}" alt="${this.attraction.name}" class="gallery-image">`;
       });
       galleryHTML += "</div>";
@@ -53,28 +51,29 @@ class AttractionPageManager {
     }
 
     this.cardInfo.innerHTML = `
-          <div class="container">
-              <div class="card">
-                  <h2>${this.attraction.name}</h2>
-                  <div class="image-map-container" id="image-gallery-container">
-                      ${galleryHTML}
-                      <iframe src="${this.attraction.map}" frameborder="0" class="map"></iframe>
-                  </div>
-                  <p>${this.attraction.description2}</p>
-                  <a href="./attractions.html" class="back-button">Вернуться назад</a>
-              </div>
+      <div class="container">
+        <div class="card">
+          <h2>${this.attraction.name}</h2>
+          <div class="image-map-container" id="image-gallery-container">
+            ${galleryHTML}
+            <iframe src="${this.attraction.map}" frameborder="0" class="map"></iframe>
           </div>
-      `;
+          <p>${this.attraction.description2}</p>
+          <a href="./attractions.html" class="back-button">Вернуться назад</a>
+        </div>
+      </div>
+    `;
   }
 
   setupGallery() {
-    if (this.galleryContainer) {
-      this.galleryContainer.addEventListener("click", (event) => {
+    const galleryContainer = document.getElementById("image-gallery-container");
+    if (galleryContainer) {
+      galleryContainer.addEventListener("click", (event) => {
         const clickedImage = event.target.closest(".gallery-image");
         if (clickedImage) {
           this.images = this.attraction.images;
           this.currentImageIndex = Array.from(
-            this.galleryContainer.querySelectorAll(".gallery-image")
+            galleryContainer.querySelectorAll(".gallery-image")
           ).indexOf(clickedImage);
           this.openFullscreenGallery();
         }
@@ -86,6 +85,7 @@ class AttractionPageManager {
       );
       this.prevImage.addEventListener("click", this.showPrevImage.bind(this));
       this.nextImage.addEventListener("click", this.showNextImage.bind(this));
+      document.addEventListener("keydown", this.handleKeyPress.bind(this));
     }
   }
 
@@ -122,6 +122,22 @@ class AttractionPageManager {
     this.fullscreenImage.src = this.images[this.currentImageIndex];
   }
 
+  handleKeyPress(event) {
+    if (this.fullscreenGallery.classList.contains("active")) {
+      switch (event.key) {
+        case "ArrowLeft":
+          this.showPrevImage();
+          break;
+        case "ArrowRight":
+          this.showNextImage();
+          break;
+        case "Escape":
+          this.closeFullscreenGallery();
+          break;
+      }
+    }
+  }
+
   loadReviews() {
     fetch(
       `https://672b2e13976a834dd025f082.mockapi.io/travelguide/asd/${this.id}`
@@ -141,11 +157,11 @@ class AttractionPageManager {
         const reviewElement = document.createElement("div");
         reviewElement.className = "review";
         reviewElement.innerHTML = `
-                  <div class="review-name">${review.name}</div>
-                  <hr>
-                  <div class="review-text">${review.text}</div>
-                  <span class="delete-review" data-index="${index}">Удалить</span>
-              `;
+          <div class="review-name">${review.name}</div>
+          <hr>
+          <div class="review-text">${review.text}</div>
+          <span class="delete-review" data-index="${index}">Удалить</span>
+        `;
         this.reviewsContainer.appendChild(reviewElement);
       });
 
