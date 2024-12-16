@@ -28,7 +28,7 @@ class AttractionsManager {
     this.currentPage = 1;
     this.itemsPerPage = 10;
     this.totalItems = 100;
-    this.currentPageAttractions = [];
+    this.currentPageAttractions = []; // Массив для хранения текущих данных
 
     this.currentSearchTerm = "";
     this.currentCategory = "all";
@@ -128,8 +128,21 @@ class AttractionsManager {
       if (order) urlWithParams.searchParams.append("order", order);
 
       const response = await fetch(urlWithParams, { method: "GET" });
+
+      // Проверяем, что ответ успешный (статус 200-299)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
+      // Проверяем, что данные являются массивом
+      if (!Array.isArray(data)) {
+        throw new Error("Invalid data format: expected an array");
+      }
+
+      // Очищаем массив перед заполнением новыми данными
+      this.currentPageAttractions = [];
       this.currentPageAttractions = data;
 
       this.currentPageAttractions.forEach((attraction) => {
@@ -142,10 +155,17 @@ class AttractionsManager {
         this.totalItems = 100;
       }
 
-      this.displayAttractions(this.currentPageAttractions);
+      // Отображаем данные или сообщение, если данные не найдены
+      if (this.currentPageAttractions.length === 0) {
+        this.displayNoAttractionsMessage();
+      } else {
+        this.displayAttractions(this.currentPageAttractions);
+      }
+
       this.addPagination();
     } catch (error) {
       console.error("Error fetching data:", error);
+      this.displayNoAttractionsMessage(); // Отображаем сообщение об ошибке
     } finally {
       this.loader.style.display = "none";
     }
@@ -153,16 +173,6 @@ class AttractionsManager {
 
   displayAttractions(data) {
     this.cardsContainer.innerHTML = "";
-
-    if (data.length === 0) {
-      const noAttractionMessage = document.createElement("p");
-      noAttractionMessage.textContent = "Достопримечательность не найдена";
-      noAttractionMessage.style.fontSize = "1.5rem";
-      noAttractionMessage.style.textAlign = "center";
-      noAttractionMessage.style.marginTop = "20px";
-      this.cardsContainer.appendChild(noAttractionMessage);
-      return;
-    }
 
     data.forEach((attraction) => {
       const card = document.createElement("div");
@@ -184,6 +194,16 @@ class AttractionsManager {
 
       this.cardsContainer.appendChild(card);
     });
+  }
+
+  displayNoAttractionsMessage() {
+    this.cardsContainer.innerHTML = "";
+    const noAttractionMessage = document.createElement("p");
+    noAttractionMessage.textContent = "Достопримечательности не найдены";
+    noAttractionMessage.style.fontSize = "1.5rem";
+    noAttractionMessage.style.textAlign = "center";
+    noAttractionMessage.style.marginTop = "20px";
+    this.cardsContainer.appendChild(noAttractionMessage);
   }
 
   addPagination() {
