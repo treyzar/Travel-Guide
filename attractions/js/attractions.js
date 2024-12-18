@@ -124,13 +124,13 @@ class AttractionsManager {
       const response = await fetch(urlWithParams, { method: "GET" });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`Ошибка, статус ошибки: ${response.status}`);
       }
 
       const data = await response.json();
 
       if (!Array.isArray(data)) {
-        throw new Error("Invalid data format: expected an array");
+        throw new Error("Данные не являются массивом");
       }
 
       this.currentPageAttractions = [];
@@ -154,8 +154,8 @@ class AttractionsManager {
 
       this.addPagination();
     } catch (error) {
-      console.error("Error fetching data:", error);
-      this.displayNoAttractionsMessage();
+      console.error("Ошибка при получении данных:", error);
+      this.displayNoAttractionsMessage()
     } finally {
       this.loader.style.display = "none";
     }
