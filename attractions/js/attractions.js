@@ -3,7 +3,6 @@ class AttractionsManager {
     url,
     cardsContainerId,
     searchInputId,
-    categoryFilterId,
     sortSelectId,
     regionFilterId,
     ratingFilterId,
@@ -28,7 +27,7 @@ class AttractionsManager {
     this.currentPage = 1;
     this.itemsPerPage = 10;
     this.totalItems = 100;
-    this.currentPageAttractions = []; // Массив для хранения текущих данных
+    this.currentPageAttractions = [];
 
     this.currentSearchTerm = "";
     this.currentCategory = "all";
@@ -37,7 +36,7 @@ class AttractionsManager {
     this.currentSortBy = "";
     this.currentOrder = "";
 
-    this.searchTimer = null; // Таймер для задержки поиска
+    this.searchTimer = null;
 
     this.init();
   }
@@ -49,19 +48,16 @@ class AttractionsManager {
       document.getElementById("reg").style.display = "none";
     }
 
-    // Обработчик для поиска с задержкой
     this.searchInput.addEventListener(
       "input",
       this.handleSearchInput.bind(this)
     );
 
-    // Обработчик для поиска по нажатию Enter
     this.searchInput.addEventListener(
       "keydown",
       this.handleSearchKeyDown.bind(this)
     );
 
-    // Обработчики для фильтров и сортировки
     this.categoryFilter.addEventListener(
       "change",
       this.filterAttractions.bind(this)
@@ -86,18 +82,17 @@ class AttractionsManager {
   }
 
   handleSearchInput() {
-    clearTimeout(this.searchTimer); // Сбрасываем таймер
+    clearTimeout(this.searchTimer);
 
-    // Устанавливаем новый таймер
     this.searchTimer = setTimeout(() => {
       this.filterAttractions();
-    }, 500); // Задержка 500 мс
+    }, 500);
   }
 
   handleSearchKeyDown(event) {
     if (event.key === "Enter") {
-      clearTimeout(this.searchTimer); // Сбрасываем таймер
-      this.filterAttractions(); // Отправляем запрос сразу
+      clearTimeout(this.searchTimer);
+      this.filterAttractions();
     }
   }
 
@@ -116,7 +111,6 @@ class AttractionsManager {
       urlWithParams.searchParams.append("page", page);
       urlWithParams.searchParams.append("limit", this.itemsPerPage);
 
-      // Добавляем параметры поиска, фильтрации и сортировки
       if (searchTerm) urlWithParams.searchParams.append("search", searchTerm);
       if (category && category !== "all")
         urlWithParams.searchParams.append("category", category);
@@ -129,19 +123,16 @@ class AttractionsManager {
 
       const response = await fetch(urlWithParams, { method: "GET" });
 
-      // Проверяем, что ответ успешный (статус 200-299)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
 
-      // Проверяем, что данные являются массивом
       if (!Array.isArray(data)) {
         throw new Error("Invalid data format: expected an array");
       }
 
-      // Очищаем массив перед заполнением новыми данными
       this.currentPageAttractions = [];
       this.currentPageAttractions = data;
 
@@ -155,7 +146,6 @@ class AttractionsManager {
         this.totalItems = 100;
       }
 
-      // Отображаем данные или сообщение, если данные не найдены
       if (this.currentPageAttractions.length === 0) {
         this.displayNoAttractionsMessage();
       } else {
@@ -165,7 +155,7 @@ class AttractionsManager {
       this.addPagination();
     } catch (error) {
       console.error("Error fetching data:", error);
-      this.displayNoAttractionsMessage(); // Отображаем сообщение об ошибке
+      this.displayNoAttractionsMessage();
     } finally {
       this.loader.style.display = "none";
     }
@@ -188,7 +178,6 @@ class AttractionsManager {
               <p><strong>Рейтинг:</strong> ${attraction.rating}</p>
           `;
       card.addEventListener("click", () => {
-        // Перенаправляем на страницу с ID достопримечательности
         window.location.href = `./info.html?id=${attraction.id}`;
       });
 
