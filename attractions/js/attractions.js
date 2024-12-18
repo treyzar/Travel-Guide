@@ -3,6 +3,7 @@ class AttractionsManager {
     url,
     cardsContainerId,
     searchInputId,
+    categoryFilterId,
     sortSelectId,
     regionFilterId,
     ratingFilterId,
